@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class CustomerController {
 
-    private final CustomerService cs;
+    private final CustomerService customerService;
 
     @RequestMapping(value = "listCustomer")
     public String customerList(Customer customer,@RequestParam(value = "currentPage", required = false) String currentPage, Model model){
         System.out.println("CustomerController Start");
         // Customer 전체 Cnt
-        int totalCustomer = cs.totalCustomer();
+        int totalCustomer = customerService.totalCustomer();
 
         model.addAttribute("totalCustomer", totalCustomer);
 

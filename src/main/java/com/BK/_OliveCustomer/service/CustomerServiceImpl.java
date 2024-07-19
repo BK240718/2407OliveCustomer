@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService{
 
-    private final CustomerDao cd;
+    private final CustomerDao customerDao;
 
     @Override
     public int totalCustomer() {
+
         System.out.println("CustomerServiceImpl Start");
-        int totCustomerCnt = cd.totalCustomer();
-        System.out.println("totCustomerCnt = " + totCustomerCnt);
-        return totCustomerCnt;
+        int totalCustomerCnt = customerDao.totalCustomer();
+
+        System.out.println("totCustomerCnt = " + totalCustomerCnt);
+
+        return totalCustomerCnt;
     }
 }

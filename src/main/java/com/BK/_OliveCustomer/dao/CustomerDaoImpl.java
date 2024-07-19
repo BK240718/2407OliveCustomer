@@ -14,18 +14,18 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public int totalCustomer() {
 
-        int totCustomerCnt = 0;
+        int totalCustomerCnt = 0;
         System.out.println("CustomerDaoImpl Start");
         
         try {
-            
-            totCustomerCnt = session.selectOne("customerTotal");
-            System.out.println("totCustomerCnt = " + totCustomerCnt);
+
+            totalCustomerCnt = session.selectOne("customerTotal");
+            System.out.println("totCustomerCnt = " + totalCustomerCnt);
         } catch (Exception e) {
             System.out.println("CustomerDaoImpl totalCustomer Exception = "+ e.getMessage()) ;
         }
 
 
-        return totCustomerCnt;
+        return totalCustomerCnt;
     }
 }
