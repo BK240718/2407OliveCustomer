@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.BK._OliveCustomer.model.Customer;
+import com.BK._OliveCustomer.dto.Customer;
 import com.BK._OliveCustomer.service.CustomerService;
 
 import lombok.RequiredArgsConstructor;
