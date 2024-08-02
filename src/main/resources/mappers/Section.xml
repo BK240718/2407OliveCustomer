@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.BK._OliveCustomer.SectionMapper">
-    <select id="MainSecName" resultType="Section">
-        select secName
-        from section
+    <select id="listSection" resultType="Section">
+        select  *
+        from    section
     </select>
 </mapper>

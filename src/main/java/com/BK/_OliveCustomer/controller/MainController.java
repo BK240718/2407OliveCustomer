@@ -20,21 +20,21 @@ public class MainController {
 
     @RequestMapping(value = "/")
     public String home() {
-        return "list";
+        return "main";
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "mainSecName", method = RequestMethod.POST)
+    @RequestMapping(value = "mainListSection", method = RequestMethod.POST)
     public Map<String, Object> mainSecName() {
 
         System.out.println("MainController MainSecName Start");
 
         Map<String, Object> response = new HashMap<String, Object>();
-        List<Section> mainSecName =sectionService.mainSecName();
+        List<Section> listSection = sectionService.listSection();
 
         response.put("status", "200 OK");
-        response.put("data", Map.of("mainSecName", mainSecName));
+        response.put("data", Map.of("listSection", listSection));
 
         return response;
 

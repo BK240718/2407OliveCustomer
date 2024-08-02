@@ -15,18 +15,18 @@ public class SectionDaoImpl implements SectionDao{
 
 
     @Override
-    public List<Section> mainSecName() {
+    public List<Section> listSection() {
 
-        System.out.println("SectionDaoImpl MainSecName Start");
-        List<Section> secNameMain = null;
+        System.out.println("SectionDaoImpl listSection Start");
+        List<Section> listSection = null;
 
         try {
-            secNameMain = session.selectList("MainSecName");
-            System.out.println("secNameMain.size() = " + secNameMain.size());
+            listSection = session.selectList("listSection");
+            System.out.println("listSection.size() = " + listSection.size());
         } catch (Exception e) {
-            System.out.println("SectionDaoImpl MainSecName Exception = " + e.getMessage());
+            System.out.println("SectionDaoImpl listSection Exception = " + e.getMessage());
         }
 
-        return secNameMain;
+        return listSection;
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.BK._OliveCustomer.dto.ItemDTLMapper">
+    <select id="listItemDTLBySection" resultType="ItemDTL">
+        Select  iDTL.*, i.itemName
+        From    itemDTL iDTL, item i, section s
+        Where   ItemDTL.itemId = i.itemId
+        And     i.sectionId = s.sectionId
+        And     s.sectionId = #{sectionId}
+    </select>
+</mapper>

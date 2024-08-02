@@ -26,6 +26,6 @@ public class CustomerController {
 
         model.addAttribute("totalCustomer", totalCustomer);
 
-        return "list";
+        return "main";
     }
 }

@@ -7,5 +7,7 @@
     <typeAliases>
         <typeAlias alias="Customer" type="com.BK._OliveCustomer.dto.Customer"/>
         <typeAlias alias="Section" type="com.BK._OliveCustomer.dto.Section"/>
+        <typeAlias alias="ItemDTL" type="com.BK._OliveCustomer.dto.ItemDTL"/>
+        <typeAlias alias="Item" type="com.BK._OliveCustomer.dto.Item"/>
     </typeAliases>
 </configuration>

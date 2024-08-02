@@ -6,5 +6,5 @@ import com.BK._OliveCustomer.dto.Section;
 import java.util.List;
 
 public interface SectionDao {
-    List<Section> mainSecName();
+    List<Section> listSection();
 }

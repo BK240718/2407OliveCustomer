@@ -14,14 +14,14 @@ public class SectionServiceImpl implements SectionService {
     private final SectionDao sectionDao;
 
     @Override
-    public List<Section> mainSecName() {
+    public List<Section> listSection() {
 
-        System.out.println("SectionServiceImpl mainSecName Start");
+        System.out.println("SectionServiceImpl listSection Start");
         
-        List<Section> mainSecName = null;
-        mainSecName = sectionDao.mainSecName();
-        System.out.println("mainSecName.size() = " + mainSecName.size());
+        List<Section> listSection = null;
+        listSection = sectionDao.listSection();
+        System.out.println("mainSecName.size() = " + listSection.size());
         
-        return mainSecName;
+        return listSection;
     }
 }

@@ -5,5 +5,5 @@ import com.BK._OliveCustomer.dto.Section;
 import java.util.List;
 
 public interface SectionService {
-    List<Section> mainSecName();
+    List<Section> listSection();
 }
