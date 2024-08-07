@@ -44,16 +44,18 @@
                         console.log("Server response:", JSON.stringify(response, null, 2));
 
                         var navSecName = $('#navSecName');
-
-
                         navSecName.empty();
 
                         $.each(listSection, function(index, section) {
-                            var listSecName = $('<li class="nav-item dropdown w-100 w-lg-auto"></li>');
                             var sectionId = section.sectionId;
                             var link = $('<a class="nav-link" href="listItemDTLBySection?sectionId=' + sectionId + '">' + section.secName + ' <span class="visually-hidden">(current)</span></a>');
+
+
+                            var listSecName = $('<li class="nav-item dropdown w-100 w-lg-auto"></li>');
+
                             listSecName.append(link);
-                            navSecName.append(listSecName);
+                             navSecName.append(listSecName);
+
                         });
                     },
                     error:function(request, status, error){

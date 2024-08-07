@@ -12,7 +12,7 @@ public class ItemDTL {
     private String colorName;
     private int purchasePrice;
     private int salesPrice;
-    private int quantity;
+    private int ItemDtlQty;
     private String regDate;
     private int status;
     private String thumbnail;
@@ -22,6 +22,7 @@ public class ItemDTL {
     // 추가 필드
     private String itemName;    // i.itemName
     private int sectionId;      // st.sectionId
+
 
     // 조회용
     private String search;      private String keyword;

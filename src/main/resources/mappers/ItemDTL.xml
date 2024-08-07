@@ -3,10 +3,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.BK._OliveCustomer.dto.ItemDTLMapper">
-    <select id="listItemDTLBySection" resultType="ItemDTL">
-        Select  iDTL.*, i.itemName
-        From    itemDTL iDTL, item i, section s
-        Where   ItemDTL.itemId = i.itemId
+    <select id="listItemDTLBySection" parameterType="itemDTL" resultType="ItemDTL">
+        SELECT  *
+        FROM
+                    (SELECT  rownum rn, a.*
+                    FROM
+                            (Select  itDTL.itemDtlId, itDTL.itemId, itDTL.colorName,
+                                    itDTL.purchasePrice, itDTL.salesPrice,
+                                    itDTL.ItemDtlQty,
+                                    itDTL.regDate, itDTL.STATUS,
+                                    itDTL.THUMBNAIL, itDTL.detailImg, itDTL.colorImg,
+                                    i.itemName,
+                                    COALESCE(SUM(invDTL.invoiceDtlQty), 0) AS TOTAL_SALES
+                            From    itemDTL itDTL, item i, section s, invoiceDTL invDTL
+                            Where   itDTL.itemId = i.itemId
+                            And     i.sectionId = s.sectionId
+                            And     invDTL.itemDtlId = itDTL.itemDtlId
+                            And     s.sectionId = #{sectionId}
+                            GROUP BY itDTL.itemDtlId, itDTL.itemId, itDTL.colorName,
+                                    itDTL.purchasePrice, itDTL.salesPrice,
+                                    itDTL.ItemDtlQty, itDTL.regDate, itDTL.status,
+                                    itDTL.THUMBNAIL, itDTL.detailImg, itDTL.colorImg,
+                                    i.itemName
+                            ORDER BY    TOTAL_SALES DESC,
+                                        itDTL.itemDtlId DESC
+                            ) a
+                    )
+        Where   rn Between #{start} AND #{end}
+    </select>
+
+    <select id="countItemDTLBySection" parameterType="int" resultType="int">
+        Select  COUNT(*)
+        From    itemDTL itDTL, item i, section s
+        Where   itDTL.itemId = i.itemId
         And     i.sectionId = s.sectionId
         And     s.sectionId = #{sectionId}
     </select>
