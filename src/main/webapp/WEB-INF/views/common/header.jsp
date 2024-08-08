@@ -243,10 +243,6 @@
                      <div class="d-block d-lg-none mb-4">
 
                      </div>
-                     <div class="dropdown me-3 d-none d-lg-block">
-
-
-                     </div>
                      <div>
                         <ul id="navSecName" class="navbar-nav align-items-center">
 

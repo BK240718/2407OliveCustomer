@@ -8,23 +8,25 @@
         FROM
                     (SELECT  rownum rn, a.*
                     FROM
-                            (Select  itDTL.itemDtlId, itDTL.itemId, itDTL.colorName,
-                                    itDTL.purchasePrice, itDTL.salesPrice,
-                                    itDTL.ItemDtlQty,
-                                    itDTL.regDate, itDTL.STATUS,
-                                    itDTL.THUMBNAIL, itDTL.detailImg, itDTL.colorImg,
-                                    i.itemName,
-                                    COALESCE(SUM(invDTL.invoiceDtlQty), 0) AS TOTAL_SALES
-                            From    itemDTL itDTL, item i, section s, invoiceDTL invDTL
-                            Where   itDTL.itemId = i.itemId
-                            And     i.sectionId = s.sectionId
-                            And     invDTL.itemDtlId = itDTL.itemDtlId
-                            And     s.sectionId = #{sectionId}
-                            GROUP BY itDTL.itemDtlId, itDTL.itemId, itDTL.colorName,
-                                    itDTL.purchasePrice, itDTL.salesPrice,
-                                    itDTL.ItemDtlQty, itDTL.regDate, itDTL.status,
-                                    itDTL.THUMBNAIL, itDTL.detailImg, itDTL.colorImg,
-                                    i.itemName
+                            (Select     itDTL.itemDtlId, itDTL.itemId, itDTL.colorName,
+                                        itDTL.purchasePrice, itDTL.salesPrice,
+                                        itDTL.ItemDtlQty,
+                                        itDTL.regDate, itDTL.STATUS,
+                                        itDTL.THUMBNAIL, itDTL.detailImg, itDTL.colorImg,
+                                        i.itemName,
+                                        COALESCE(
+                                                    (SELECT SUM(invDTL.invoiceDtlQty)
+                                                     FROM   invoiceDTL invDTL
+                                                     WHERE  invDTL.itemDtlId = itDTL.itemDtlId), 0) AS TOTAL_SALES
+                            From        itemDTL itDTL, item i, section s
+                            Where       itDTL.itemId = i.itemId
+                            And         i.sectionId = s.sectionId
+                            And         s.sectionId = #{sectionId}
+                            GROUP BY    itDTL.itemDtlId, itDTL.itemId, itDTL.colorName,
+                                        itDTL.purchasePrice, itDTL.salesPrice,
+                                        itDTL.ItemDtlQty, itDTL.regDate, itDTL.status,
+                                        itDTL.THUMBNAIL, itDTL.detailImg, itDTL.colorImg,
+                                        i.itemName
                             ORDER BY    TOTAL_SALES DESC,
                                         itDTL.itemDtlId DESC
                             ) a
@@ -38,5 +40,21 @@
         Where   itDTL.itemId = i.itemId
         And     i.sectionId = s.sectionId
         And     s.sectionId = #{sectionId}
+    </select>
+
+
+    <select id="oneItemDTL" parameterType="int" resultType="itemDTL">
+        SELECT  iDTL.*, i.itemName
+        FROM    itemDTL iDTL, item i
+        WHERE   itemDtlId = #{itemDtlId}
+        AND     iDTL.itemId = i.itemId
+    </select>
+
+    <select id="listItemDTLByItemId" parameterType="itemDTL" resultType="itemDTL">
+        SELECT  iDTL.*, i.itemName
+        FROM    itemDTL iDTL, item i
+        WHERE   iDTL.itemId = i.itemId
+        AND     i.itemId = #{itemId}
+        AND     iDTL.itemDtlId != #{itemDtlId}
     </select>
 </mapper>

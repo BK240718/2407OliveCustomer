@@ -62,6 +62,16 @@ public class ItemDTLController {
 
         System.out.println("ItemDTLController oneItemDTL Start");
 
+        ItemDTL itemDTL = new ItemDTL();
+        itemDTL = itemDTLService.oneItemDTL(itemDTLId);
+
+        List<ItemDTL> listItemDTLByItemId = itemDTLService.listItemDTLByItemId(itemDTL);
+
+        model.addAttribute("itemDTL", itemDTL);
+        model.addAttribute("listItemDTLByItemId", listItemDTLByItemId);
+
         return "oneItemDTL";
     }
+
+
 }

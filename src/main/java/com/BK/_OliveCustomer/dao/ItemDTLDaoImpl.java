@@ -29,6 +29,7 @@ public class ItemDTLDaoImpl implements ItemDTLDao {
         return listItemDTLBySection;
     }
 
+
     @Override
     public int countItemDTLBySection(int sectionId) {
 
@@ -43,5 +44,37 @@ public class ItemDTLDaoImpl implements ItemDTLDao {
         }
 
         return countItemDTLBySection;
+    }
+
+
+    @Override
+    public ItemDTL oneItemDTL(int itemDtlId) {
+
+        System.out.println("ItemDTLDaoImpl oneItemDTL Start");
+        ItemDTL itemDTL = new ItemDTL();
+
+        try {
+            itemDTL = session.selectOne("oneItemDTL", itemDtlId);
+        } catch (Exception e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
+        return itemDTL;
+    }
+
+
+    @Override
+    public List<ItemDTL> listItemDTLByItemId(ItemDTL itemDTL) {
+
+        System.out.println("ItemDTLDaoImpl listItemDTLByItemId Start");
+        List<ItemDTL> listItemDTLByItemId = null;
+
+        try {
+            listItemDTLByItemId = session.selectList("listItemDTLByItemId", itemDTL);
+            System.out.println("listItemDTLByItemId.size() = " + listItemDTLByItemId.size());
+        } catch (Exception e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
+
+        return listItemDTLByItemId;
     }
 }

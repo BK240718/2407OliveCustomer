@@ -9,4 +9,8 @@ public interface ItemDTLService {
     List<ItemDTL> listItemDTLBySection(ItemDTL itemDTL);
 
     int countItemDTLBySection(int sectionId);
+
+    ItemDTL oneItemDTL(int itemDTLId);
+
+    List<ItemDTL> listItemDTLByItemId(ItemDTL itemDTL);
 }

@@ -9,4 +9,8 @@ public interface ItemDTLDao {
     List<ItemDTL> listItemDTLBySection(ItemDTL itemDTL);
 
     int countItemDTLBySection(int sectionId);
+
+    ItemDTL oneItemDTL(int itemDtlId);
+
+    List<ItemDTL> listItemDTLByItemId(ItemDTL itemDTL);
 }

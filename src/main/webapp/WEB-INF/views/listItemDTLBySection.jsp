@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -214,11 +215,7 @@
                                             </a>
                                             <!-- action btn -->
                                             <div class="card-product-action">
-                                               <a href="#!" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal">
-                                                  <i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" title="Quick View"></i>
-                                               </a>
                                                <a href="shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" title="Wishlist"><i class="bi bi-heart"></i></a>
-                                               <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" title="Compare"><i class="bi bi-arrow-left-right"></i></a>
                                             </div>
                                          </div>
                                          <!-- heading -->
@@ -240,7 +237,7 @@
                                          <!-- price -->
                                          <div class="d-flex justify-content-between align-items-center mt-3">
                                             <div>
-                                               <span class="text-dark">${itemDTL.salesPrice}</span>
+                                               <span class="text-dark"><fmt:formatNumber type="currency" currencySymbol="₩" value="${itemDTL.salesPrice}"/></span>
                                             </div>
                                             <!-- btn -->
                                             <div>
