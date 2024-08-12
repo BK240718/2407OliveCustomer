@@ -31,62 +31,35 @@
          <section class="mt-8">
             <div class="container">
                <div class="row">
-                  <div class="col-md-5 col-xl-6">
-                     <div class="slider slider-for">
-                        <div>
-                           <div class="zoom" onmousemove="zoom(event)" style="background-image: url(../assets/images/products/product-single-img-1.jpg)">
-                              <!-- img -->
-                              <!-- img -->
-                              <img src="../assets/images/products/product-single-img-1.jpg" alt="" />
-                           </div>
-                        </div>
-                        <div>
-                           <div class="zoom" onmousemove="zoom(event)" style="background-image: url(../assets/images/products/product-single-img-2.jpg)">
-                              <!-- img -->
-                              <!-- img -->
-                              <img src="../assets/images/products/product-single-img-2.jpg" alt="" />
-                           </div>
-                        </div>
-                        <div>
-                           <div class="zoom" onmousemove="zoom(event)" style="background-image: url(../assets/images/products/product-single-img-3.jpg)">
-                              <!-- img -->
-                              <!-- img -->
-                              <img src="../assets/images/products/product-single-img-3.jpg" alt="" />
-                           </div>
-                        </div>
-                        <div>
-                           <div class="zoom" onmousemove="zoom(event)" style="background-image: url(../assets/images/products/product-single-img-1.jpg)">
-                              <!-- img -->
-                              <!-- img -->
-                              <img src="../assets/images/products/product-single-img-1.jpg" alt="" />
-                           </div>
-                        </div>
-                        <div>
-                           <div class="zoom" onmousemove="zoom(event)" style="background-image: url(../assets/images/products/product-single-img-4.jpg)">
-                              <!-- img -->
-                              <!-- img -->
-                              <img src="../assets/images/products/product-single-img-4.jpg" alt="" />
-                           </div>
-                        </div>
-                     </div>
-                     <div class="slider slider-nav mt-4">
-                        <div>
-                           <img src="../assets/images/products/product-single-img-1.jpg" alt="" class="w-100 rounded" />
-                        </div>
-                        <div>
-                           <img src="../assets/images/products/product-single-img-2.jpg" alt="" class="w-100 rounded" />
-                        </div>
-                        <div>
-                           <img src="../assets/images/products/product-single-img-3.jpg" alt="" class="w-100 rounded" />
-                        </div>
-                        <div>
-                           <img src="../assets/images/products/product-single-img-1.jpg" alt="" class="w-100 rounded" />
-                        </div>
-                        <div>
-                           <img src="../assets/images/products/product-single-img-4.jpg" alt="" class="w-100 rounded" />
-                        </div>
-                     </div>
-                  </div>
+                    <div class="col-md-5 col-xl-6">
+                       <div class="slider slider-for">
+                          <div>
+                             <div class="zoom" onmousemove="zoom(event)" style="background-image: url(${itemDTL.colorImg})">
+                                <!-- img -->
+                                <!-- img -->
+                                <img src="${itemDTL.colorImg}" alt="colorImg" />
+                             </div>
+                          </div>
+                          <c:forEach var="thumbnail" items="${thumbnailList}">
+                              <div>
+                                 <div class="zoom" onmousemove="zoom(event)" style="background-image: url(${thumbnail})">
+                                    <!-- img -->
+                                    <img src="${thumbnail}" alt="thumbnail" />
+                                 </div>
+                              </div>
+                          </c:forEach>
+                       </div>
+                       <div class="slider slider-nav mt-4">
+                          <div>
+                             <img src="${itemDTL.colorImg}" alt="colorImg" class="w-100 rounded" />
+                          </div>
+                          <c:forEach var="thumbnail" items="${thumbnailList}">
+                              <div>
+                                 <img src="${thumbnail}" alt="thumbnail" class="w-100 rounded" />
+                              </div>
+                          </c:forEach>
+                       </div>
+                    </div>
 
                   <div class="col-md-7 col-xl-6">
                      <div class="ps-lg-10 mt-6 mt-md-0">
@@ -199,7 +172,7 @@
                                    <div class="text-center position-relative">
                                       <a href="#!">
                                          <!-- img -->
-                                         <img src="../assets/images/products/product-img-1.jpg" alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
+                                         <img src="${relatedItems.colorImg}" alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
                                       </a>
                                       <!-- action btn -->
                                       <div class="card-product-action">
@@ -282,35 +255,11 @@
                         <div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
                            <div class="my-8">
                               <div class="mb-5">
-                                 <!-- text -->
-                                 <h4 class="mb-1">Nutrient Value & Benefits</h4>
-                                 <p class="mb-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc
-                                    sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed. Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit.
-                                 </p>
-                              </div>
-                              <div class="mb-5">
-                                 <h5 class="mb-1">Storage Tips</h5>
-                                 <p class="mb-0">
-                                    Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus
-                                    facilisis ante ipsum netus risus adipiscing sagittis sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                 </p>
-                              </div>
-                              <!-- content -->
-                              <div class="mb-5">
-                                 <h5 class="mb-1">Unit</h5>
-                                 <p class="mb-0">3 units</p>
-                              </div>
-                              <div class="mb-5">
-                                 <h5 class="mb-1">Seller</h5>
-                                 <p class="mb-0">DMart Pvt. LTD</p>
-                              </div>
-                              <div>
-                                 <h5 class="mb-1">Disclaimer</h5>
-                                 <p class="mb-0">
-                                    Image shown is a representation and may slightly vary from the actual product. Every effort is made to maintain accuracy of all information displayed.
-                                 </p>
+                                  <c:forEach var="detailImg" items="${detailImgList}">
+                                      <div>
+                                         <img src="${detailImg}" alt="detailImg" class="w-100 rounded" />
+                                      </div>
+                                  </c:forEach>
                               </div>
                            </div>
                         </div>

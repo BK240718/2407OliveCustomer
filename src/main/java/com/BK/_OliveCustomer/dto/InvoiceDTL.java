@@ -12,4 +12,6 @@ public class InvoiceDTL {
     private int status;
     private int trackNum;
     private String delDate;
+
+
 }

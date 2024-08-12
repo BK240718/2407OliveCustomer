@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.BK._OliveCustomer.InvoiceMapper">
+    <select id="listInvoiceByCustomerId" parameterType="int" resultType="invoice">
+        SELECT  inv.*,
+                invDTL.invoiceDtlId, invDTL.invoiceDtlQty, invDTL.price,
+                itDTL.colorName, itDTL.colorImg,
+                it.itemName
+        FROM    invoiceDTL invDTL, invoice inv, itemDTL itDTL, item it
+        WHERE   invDTL.invoiceId    = inv.invoiceId
+        AND     invDTL.itemDtlId    = itDTL.itemDtlId
+        AND     itDTL.itemId        = it.itemId
+        AND     inv.customerId      = #{customerId}
+    </select>
+</mapper>

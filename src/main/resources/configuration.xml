@@ -9,5 +9,6 @@
         <typeAlias alias="Section" type="com.BK._OliveCustomer.dto.Section"/>
         <typeAlias alias="ItemDTL" type="com.BK._OliveCustomer.dto.ItemDTL"/>
         <typeAlias alias="Item" type="com.BK._OliveCustomer.dto.Item"/>
+        <typeAlias alias="Invoice" type="com.BK._OliveCustomer.dto.Invoice"/>
     </typeAliases>
 </configuration>

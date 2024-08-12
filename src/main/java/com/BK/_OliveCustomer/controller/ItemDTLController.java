@@ -1,8 +1,6 @@
 package com.BK._OliveCustomer.controller;
 
-import com.BK._OliveCustomer.dto.Item;
 import com.BK._OliveCustomer.dto.ItemDTL;
-import com.BK._OliveCustomer.dto.Section;
 import com.BK._OliveCustomer.service.ItemDTLService;
 import com.BK._OliveCustomer.service.Paging;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -62,12 +58,20 @@ public class ItemDTLController {
 
         System.out.println("ItemDTLController oneItemDTL Start");
 
-        ItemDTL itemDTL = new ItemDTL();
-        itemDTL = itemDTLService.oneItemDTL(itemDTLId);
+        ItemDTL itemDTL = itemDTLService.oneItemDTL(itemDTLId);
 
+        // JSON 문자열을 List로 변환
+        String thumbnailJson = itemDTL.getThumbnail();
+        List<String> thumbnailList = itemDTLService.convertJsonToList(thumbnailJson);
+        String detailImgJson = itemDTL.getDetailImg();
+        List<String> detailImgList = itemDTLService.convertJsonToList(detailImgJson);
+
+        // Related Items
         List<ItemDTL> listItemDTLByItemId = itemDTLService.listItemDTLByItemId(itemDTL);
 
         model.addAttribute("itemDTL", itemDTL);
+        model.addAttribute("thumbnailList", thumbnailList);
+        model.addAttribute("detailImgList", detailImgList);
         model.addAttribute("listItemDTLByItemId", listItemDTLByItemId);
 
         return "oneItemDTL";

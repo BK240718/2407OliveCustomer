@@ -140,7 +140,7 @@
                            </a>
                         </div>
                         <div class="list-inline-item me-5">
-                           <a href="#!" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
+                           <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
                                  width="20"
@@ -252,4 +252,53 @@
                </div>
             </div>
          </nav>
+          <!-- Modal -->
+          <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+             <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content p-4">
+                   <div class="modal-header border-0">
+                      <h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign In</h5>
+
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                   </div>
+                   <div class="modal-body">
+                      <form action="oneCustomerForSignIn" class="needs-validation" novalidate method="post">
+                         <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input name="email" type="email" class="form-control" id="email" placeholder="Enter Email address" required />
+                            <div class="invalid-feedback">Please enter email.</div>
+                         </div>
+                         <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required />
+                            <div class="invalid-feedback">Please enter password.</div>
+                            <small class="form-text">
+                               By Signup, you agree to our
+                               <a href="#!">Terms of Service</a>
+                               &
+                               <a href="#!">Privacy Policy</a>
+                            </small>
+                         </div>
+                         <button type="submit" class="btn btn-primary" type="submit">Sign In</button>
+                      </form>
+                   </div>
+                   <div class="modal-footer border-0 justify-content-center">
+                      Don't have an account?
+                      <a href="#">Sign up</a>
+                   </div>
+                </div>
+             </div>
+          </div>
       </div>
+        <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <%
+            String loginError = (String) session.getAttribute("loginError");
+            if (loginError != null) {
+                session.removeAttribute("loginError");
+        %>
+            <script>
+                alert("<%= loginError %>");
+            </script>
+        <%
+            }
+        %>

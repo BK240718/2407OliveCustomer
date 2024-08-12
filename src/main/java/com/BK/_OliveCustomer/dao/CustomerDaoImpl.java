@@ -1,5 +1,6 @@
 package com.BK._OliveCustomer.dao;
 
+import com.BK._OliveCustomer.dto.Customer;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -14,9 +15,9 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public int totalCustomer() {
 
+        System.out.println("CustomerDaoImpl totalCustomer Start");
         int totalCustomerCnt = 0;
-        System.out.println("CustomerDaoImpl Start");
-        
+
         try {
 
             totalCustomerCnt = session.selectOne("customerTotal");
@@ -27,5 +28,20 @@ public class CustomerDaoImpl implements CustomerDao {
 
 
         return totalCustomerCnt;
+    }
+
+    @Override
+    public Customer oneCustomerForSignIn(Customer customerP) {
+
+        System.out.println("CustomerDaoImpl oneCustomerForSignIn Start");
+        Customer customer = new Customer();
+
+        try {
+            customer = session.selectOne("oneCustomerForSignIn", customerP);
+        } catch (Exception e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
+
+        return customer;
     }
 }
