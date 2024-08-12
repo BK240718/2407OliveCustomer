@@ -42,4 +42,18 @@ public class InvoiceController {
         return "invoice/listInvoice";
     }
 
+    @RequestMapping(value = "listInvoiceDTL")
+    public String  listInvoiceDTL(@RequestParam("invoiceId") int invoiceId,
+                                  Model model) {
+
+        System.out.println("InvoiceController listInvoiceDTL Start");
+
+        List<Invoice> listInvoiceDTL = invoiceService.listInvoiceDTL(invoiceId);
+        System.out.println("InvoiceController listInvoiceDTL.size() = " + listInvoiceDTL.size());
+
+        model.addAttribute("listInvoiceDTL", listInvoiceDTL);
+
+        return "invoice/listInvoiceDTL";
+    }
+
 }

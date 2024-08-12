@@ -7,4 +7,6 @@ import java.util.List;
 public interface InvoiceService {
 
     List<Invoice> listInvoiceByCustomerId(int customerId);
+
+    List<Invoice> listInvoiceDTL(int invoiceId);
 }

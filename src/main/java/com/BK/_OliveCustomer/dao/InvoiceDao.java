@@ -8,4 +8,5 @@ public interface InvoiceDao {
 
     List<Invoice> listInvoiceByCustomerId(int customerId);
 
+    List<Invoice> listInvoiceDTL(int invoiceId);
 }

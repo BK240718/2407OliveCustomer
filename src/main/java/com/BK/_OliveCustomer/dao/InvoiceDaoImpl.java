@@ -29,4 +29,20 @@ public class InvoiceDaoImpl implements InvoiceDao {
 
         return listInvoiceByCustomerId;
     }
+
+    @Override
+    public List<Invoice> listInvoiceDTL(int invoiceId) {
+
+        System.out.println("InvoiceDaoImpl listInvoiceDTL Start");
+
+        List<Invoice> listInvoiceDTL = null;
+        
+        try {
+            listInvoiceDTL = session.selectList("listInvoiceDTL", invoiceId);
+            System.out.println("listInvoiceDTL.size() = " + listInvoiceDTL.size());
+        } catch (Exception e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
+        return listInvoiceDTL;
+    }
 }

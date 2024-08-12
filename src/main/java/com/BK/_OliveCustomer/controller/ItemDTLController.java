@@ -48,7 +48,7 @@ public class ItemDTLController {
         model.addAttribute("sectionId",sectionId);
         model.addAttribute("page",page);
 
-        return "listItemDTLBySection";
+        return "itemDTL/listItemDTLBySection";
     }
 
 
@@ -74,7 +74,7 @@ public class ItemDTLController {
         model.addAttribute("detailImgList", detailImgList);
         model.addAttribute("listItemDTLByItemId", listItemDTLByItemId);
 
-        return "oneItemDTL";
+        return "itemDTL/oneItemDTL";
     }
 
 

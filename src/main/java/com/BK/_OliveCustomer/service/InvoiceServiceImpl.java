@@ -23,4 +23,15 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         return listInvoiceByCustomerId;
     }
+
+    @Override
+    public List<Invoice> listInvoiceDTL(int invoiceId) {
+
+        System.out.println("InvoiceServiceImpl listInvoiceDTL Start");
+
+        List<Invoice> listInvoiceDTL = invoiceDao.listInvoiceDTL(invoiceId);
+        System.out.println("InvoiceServiceImpl listInvoiceDTL.size() = " + listInvoiceDTL.size());
+
+        return listInvoiceDTL;
+    }
 }

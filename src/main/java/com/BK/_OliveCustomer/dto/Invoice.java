@@ -38,4 +38,10 @@ public class Invoice {
             return null;
         }
     }
+
+
+    // 각 InvoiceDTL 총계 = 제품 판매가 * 수량
+    public int getTotalPriceForInvoiceDTL() {
+        return price * invoiceDtlQty;
+    }
 }

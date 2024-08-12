@@ -14,4 +14,16 @@
         AND     itDTL.itemId        = it.itemId
         AND     inv.customerId      = #{customerId}
     </select>
+
+    <select id="listInvoiceDTL" parameterType="int" resultType="invoice">
+        SELECT  inv.*,
+                invDTL.invoiceDtlId, invDTL.invoiceDtlQty, invDTL.price,
+                itDTL.colorName, itDTL.colorImg,
+                it.itemName
+        FROM    invoiceDTL invDTL, invoice inv, itemDTL itDTL, item it
+        WHERE   invDTL.invoiceId    = inv.invoiceId
+        AND     invDTL.itemDtlId    = itDTL.itemDtlId
+        AND     itDTL.itemId        = it.itemId
+        AND     inv.invoiceId       = #{invoiceId}
+    </select>
 </mapper>
