@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -48,10 +49,18 @@ public class InvoiceController {
 
         System.out.println("InvoiceController listInvoiceDTL Start");
 
-        List<Invoice> listInvoiceDTL = invoiceService.listInvoiceDTL(invoiceId);
+        Map<String, Object> result = invoiceService.listInvoiceDTL(invoiceId);
+        List<Invoice> listInvoiceDTL = (List<Invoice>) result.get("listInvoiceDTL");
+        int subTotal = (int) result.get("subTotal");
+        int shippingCost = (int) result.get("shippingCost");
+        int grandTotal = (int) result.get("grandTotal");
+
         System.out.println("InvoiceController listInvoiceDTL.size() = " + listInvoiceDTL.size());
 
         model.addAttribute("listInvoiceDTL", listInvoiceDTL);
+        model.addAttribute("subTotal", subTotal);
+        model.addAttribute("shippingCost", shippingCost);
+        model.addAttribute("grandTotal", grandTotal);
 
         return "invoice/listInvoiceDTL";
     }

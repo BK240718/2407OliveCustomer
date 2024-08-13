@@ -23,9 +23,13 @@ public class Invoice {
     private int invoiceDtlId;   // invDTL.invoiceDtlId
     private int invoiceDtlQty;  // invDTL.invoiceDtlQty
     private int price;          // invDTL.price
+    private int itemDtlId;      // invDTL.itemDtlId
     private String colorName;   // itDTL.colorName
     private String colorImg;    // itDTL.colorImg
     private String itemName;    // it.itemName
+
+    // 계산된 필드 추가
+    private int totalPriceForInvoiceDTL;
 
 
     // String Date 문자열을 Date 객체로 변환
@@ -41,7 +45,7 @@ public class Invoice {
 
 
     // 각 InvoiceDTL 총계 = 제품 판매가 * 수량
-    public int getTotalPriceForInvoiceDTL() {
-        return price * invoiceDtlQty;
+    public void calculateTotalPriceForInvoiceDTL() {
+        this.totalPriceForInvoiceDTL = this.price * this.invoiceDtlQty;
     }
 }

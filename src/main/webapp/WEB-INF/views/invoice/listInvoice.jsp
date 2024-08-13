@@ -91,7 +91,8 @@
                                         </td>
                                         <td class="align-middle border-top-0"><fmt:formatNumber type="currency" currencySymbol="₩" value="${listInvoice.price}"/></td>
                                         <td class="text-muted align-middle border-top-0">
-                                           <a href="#" class="text-inherit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View"><i class="feather-icon icon-eye"></i></a>
+                                            <button type="button" class="btn btn-outline-secondary mb-1 btn-sm">배송조회</button><br>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="formToInsertReview()">리뷰작성</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -113,5 +114,17 @@
 
       <!-- Theme JS -->
       <script src="../assets/js/theme.min.js"></script>
+
+      <script>
+
+        function formToInsertReview() {
+            window.open(
+                '/formToInsertReview',  // 컨트롤러명
+                'formToInsertReview',    // jsp명
+                'width=600,height=500,scrollbars=yes,resizable=yes'
+            )
+        }
+
+      </script>
    </body>
 </html>

@@ -11,7 +11,12 @@ public class ReviewController {
 
     @RequestMapping(value = "listReview")
     public String listReview(Model model) {
-        return "listReview";
+        return "review/listReview";
+    }
+
+    @RequestMapping(value = "formToInsertReview")
+    public String formToInsertReview(Model model) {
+        return "review/formToInsertReview";
     }
 
 }

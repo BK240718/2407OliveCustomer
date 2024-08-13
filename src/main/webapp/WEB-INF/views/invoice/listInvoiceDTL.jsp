@@ -69,7 +69,7 @@
                                       </div>
                                       <!-- button -->
                                       <div>
-                                         <a href="#" class="btn btn-primary">Back to all orders</a>
+                                         <a href="listInvoice" class="btn btn-primary">Back to all orders</a>
                                       </div>
                                    </div>
                                 </div>
@@ -165,7 +165,7 @@
                                                     <c:forEach var="listInvoiceDTL" items="${listInvoiceDTL}">
                                                          <tr>
                                                             <td>
-                                                               <a href="#" class="text-inherit">
+                                                               <a href="oneItemDTL?itemDTLId=${listInvoiceDTL.itemDtlId}" class="text-inherit">
                                                                   <div class="d-flex align-items-center">
                                                                      <div>
                                                                         <img src="${listInvoiceDTL.colorImg}" alt="" class="icon-shape icon-lg" />
@@ -180,8 +180,7 @@
                                                             <td><span class="text-body"><fmt:formatNumber type="currency" currencySymbol="₩" value="${listInvoiceDTL.price}"/></span></td>
                                                             <td>${listInvoiceDTL.invoiceDtlQty}</td>
                                                             <!-- Total price 계산 -->
-                                                            <c:set var="totalPriceForInvoiceDTL" value="${listInvoiceDTL.price * listInvoiceDTL.invoiceDtlQty}" />
-                                                            <td><fmt:formatNumber type="currency" currencySymbol="₩" value="${totalPriceForInvoiceDTL}" /></td>
+                                                            <td><fmt:formatNumber type="currency" currencySymbol="₩" value="${listInvoiceDTL.totalPriceForInvoiceDTL}" /></td>
                                                          </tr>
                                                     </c:forEach>
                                                      <tr>
@@ -193,7 +192,7 @@
                                                         </td>
                                                         <td class="fw-medium text-dark">
                                                            <!-- text -->
-                                                           $80.00
+                                                           <fmt:formatNumber type="currency" currencySymbol="₩" value="${subTotal}" />
                                                         </td>
                                                      </tr>
                                                      <tr>
@@ -205,7 +204,7 @@
                                                         </td>
                                                         <td class="fw-medium text-dark">
                                                            <!-- text -->
-                                                           $10.00
+                                                           <fmt:formatNumber type="currency" currencySymbol="₩" value="${shippingCost}" />
                                                         </td>
                                                      </tr>
 
@@ -218,7 +217,7 @@
                                                         </td>
                                                         <td class="fw-semibold text-dark">
                                                            <!-- text -->
-                                                           $90.00
+                                                           <fmt:formatNumber type="currency" currencySymbol="₩" value="${grandTotal}" />
                                                         </td>
                                                      </tr>
                                                   </tbody>
@@ -229,13 +228,12 @@
                                       <div class="card-body p-6">
                                          <div class="row">
                                             <div class="col-md-6 mb-4 mb-lg-0">
-                                               <h6>Payment Info</h6>
-                                               <span>Cash on Delivery</span>
+                                               <h6>Delivery Instructions</h6>
+                                               <span>${listInvoiceDTL[0].request}</span>
                                             </div>
                                             <div class="col-md-6">
-                                               <h5>Notes</h5>
-                                               <textarea class="form-control mb-3" rows="3" placeholder="Write note for order"></textarea>
-                                               <a href="#" class="btn btn-primary">Save Notes</a>
+                                               <h6>Payment Info</h6>
+                                               <span>Cash on Delivery</span>
                                             </div>
                                          </div>
                                       </div>
