@@ -5,7 +5,7 @@
 <mapper namespace="com.BK._OliveCustomer.InvoiceMapper">
     <select id="listInvoiceByCustomerId" parameterType="int" resultType="invoice">
         SELECT  inv.*,
-                invDTL.invoiceDtlId, invDTL.invoiceDtlQty, invDTL.price,
+                invDTL.invoiceDtlId, invDTL.invoiceDtlQty, invDTL.price, invDTL.itemDtlId,
                 itDTL.colorName, itDTL.colorImg,
                 it.itemName
         FROM    invoiceDTL invDTL, invoice inv, itemDTL itDTL, item it

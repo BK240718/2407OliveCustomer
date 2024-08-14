@@ -92,7 +92,7 @@
                                         <td class="align-middle border-top-0"><fmt:formatNumber type="currency" currencySymbol="₩" value="${listInvoice.price}"/></td>
                                         <td class="text-muted align-middle border-top-0">
                                             <button type="button" class="btn btn-outline-secondary mb-1 btn-sm">배송조회</button><br>
-                                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="formToInsertReview()">리뷰작성</button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="popupToInsertReview('${listInvoice.itemDtlId}')">리뷰작성</button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -117,11 +117,11 @@
 
       <script>
 
-        function formToInsertReview() {
+        function popupToInsertReview(itemDtlId) {
             window.open(
-                '/formToInsertReview',  // 컨트롤러명
-                'formToInsertReview',    // jsp명
-                'width=600,height=500,scrollbars=yes,resizable=yes'
+                '/popupToInsertReview?itemDtlId=' + encodeURIComponent(itemDtlId),  // uri에 쿼리 문자열 추가
+                'popupToInsertReview',   // 창 이름
+                'width=800,height=1000,scrollbars=yes,resizable=yes'
             )
         }
 

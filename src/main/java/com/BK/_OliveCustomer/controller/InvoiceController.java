@@ -37,6 +37,7 @@ public class InvoiceController {
         System.out.println("InvoiceController customerId = " + customerId);
 
         List<Invoice> listInvoiceByCustomerId = invoiceService.listInvoiceByCustomerId(customerId);
+        System.out.println("InvoiceController listInvoiceByCustomerId.get(0).getItemDtlId() = " + listInvoiceByCustomerId.get(0).getItemDtlId());
 
         model.addAttribute("listInvoiceByCustomerId", listInvoiceByCustomerId);
 

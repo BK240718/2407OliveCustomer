@@ -23,6 +23,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         try {
             listInvoiceByCustomerId = session.selectList("listInvoiceByCustomerId", customerId);
             System.out.println("listInvoiceByCustomerId.size() = " + listInvoiceByCustomerId.size());
+            System.out.println("InvoiceDaoImpl listInvoiceByCustomerId.get(0).getItemDtlId() = " + listInvoiceByCustomerId.get(0).getItemDtlId());
         } catch (Exception e) {
             System.out.println("e.getMessage() = " + e.getMessage());
         }

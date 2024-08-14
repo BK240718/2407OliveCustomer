@@ -22,6 +22,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         List<Invoice> listInvoiceByCustomerId = invoiceDao.listInvoiceByCustomerId(customerId);
         System.out.println("listInvoiceByCustomerId.size() = " + listInvoiceByCustomerId.size());
+        System.out.println("InvoiceServiceImpl listInvoiceByCustomerId.get(0).getItemDtlId() = " + listInvoiceByCustomerId.get(0).getItemDtlId());
 
         return listInvoiceByCustomerId;
     }
