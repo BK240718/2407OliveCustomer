@@ -45,3 +45,6 @@ out
 gen
 .gradle
 build.gradle
+
+### Security ###
+application-aws.yml

@@ -31,7 +31,8 @@
         <div class="py-6 p-md-6 p-lg-10">
             <div class="row">
                 <div class="col-lg-8">
-                    <div>
+                    <form action="/insertReviewNVote" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="itemDtlId" value="${itemDTL.itemDtlId}">
                         <!-- rating -->
                         <div style="border-bottom: 2px solid #000; padding-top: 0.5rem; padding-bottom: 0.5rem;">
                             <h3 class="mb-5">Create Review</h3>
@@ -52,7 +53,7 @@
                         <div class="border-bottom py-4 mb-4">
                              <h4 class="mb-3">Overall rating</h4>
                              <div class="rater">
-
+                                <input type="hidden" name="rating" id="rating" value="">
                              </div>
                         </div>
                         <div class="border-bottom py-4 mb-4">
@@ -62,25 +63,25 @@
                                  <div class="row">
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck1">
                                              <label class="form-check-label" for="flexCheck1">봄 웜 라이트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck2">
                                              <label class="form-check-label" for="flexCheck2">여름 쿨 라이트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck3">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck3">
                                              <label class="form-check-label" for="flexCheck3">가을 웜 뮤트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck4">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck4">
                                              <label class="form-check-label" for="flexCheck4">겨울 쿨 브라이트</label>
                                          </div>
                                      </div>
@@ -89,25 +90,25 @@
                                  <div class="row">
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck5">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck5">
                                              <label class="form-check-label" for="flexCheck5">봄 웜 트루</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck6">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck6">
                                              <label class="form-check-label" for="flexCheck6">여름 쿨 트루</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck7">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck7">
                                              <label class="form-check-label" for="flexCheck7">가을 웜 트루</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck8">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck8">
                                              <label class="form-check-label" for="flexCheck8">겨울 쿨 트루</label>
                                          </div>
                                      </div>
@@ -116,25 +117,25 @@
                                  <div class="row">
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck9">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck9">
                                              <label class="form-check-label" for="flexCheck9">봄 웜 브라이트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck10">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck10">
                                              <label class="form-check-label" for="flexCheck10">여름 쿨 뮤트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck11">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck11">
                                              <label class="form-check-label" for="flexCheck11">가을 웜 딥</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" value="" id="flexCheck12">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck12">
                                              <label class="form-check-label" for="flexCheck12">겨울 쿨 딥</label>
                                          </div>
                                      </div>
@@ -145,18 +146,31 @@
                         <div class="border-bottom py-4 mb-4">
                              <!-- heading -->
                               <h5>Add a written review</h5>
-                              <textarea class="form-control" rows="3" placeholder="What did you like or dislike? What did you use this product for?"></textarea>
+                              <textarea class="form-control" rows="3" name="content" placeholder="What did you like or dislike? What did you use this product for?"></textarea>
                         </div>
                         <div class="py-4 mb-4">
                              <h5>Add a photo</h5>
                              <p>Shoppers find images more helpful than text alone.</p>
-                             <div id="my-dropzone" class="dropzone mt-4 border-dashed rounded-2 min-h-0"></div>
+                             <div class="mb-4 d-flex">
+                                <div class="position-relative">
+                                  <img class="image icon-shape icon-xxxl bg-light rounded-4" src="../assets/images/docs/placeholder-img.jpg" alt="Image" />
+                                  <div class="file-upload position-absolute end-0 top-0 mt-n2 me-n1">
+                                     <input type="file" class="file-input" name="reviewImg" multiple/>
+                                     <span class="icon-shape icon-sm rounded-circle bg-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil-fill text-muted" viewBox="0 0 16 16">
+                                           <path
+                                              d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                        </svg>
+                                     </span>
+                                  </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- button -->
                         <div class="d-flex justify-content-end">
                             <a href="#" class="btn btn-primary">Submit Review</a>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -181,5 +195,39 @@
         <script src="../assets/libs/quill/dist/quill.min.js"></script>
         <script src="../assets/js/vendors/editor.js"></script>
         <script src="../assets/js/vendors/dropzone.js"></script>
+
+        <script>
+            // DOM이 완전히 로드된 후 실행
+            document.addEventListener('DOMContentLoaded', function() {
+                // 별점 UI를 표시하는 div 요소와 숨겨진 input 요소를 가져옴
+                const raterDiv = document.querySelector('.rater');
+                const ratingInput = document.getElementById('rating');
+
+                // 별점 UI를 클릭할 때 이벤트 리스너 추가
+                raterDiv.addEventListener('click', function(e) {
+                    // 별점 UI의 너비를 가져옴
+                    const raterWidth = raterDiv.offsetWidth;
+                    // 클릭 위치를 기준으로 별점 값을 계산
+                    const clickX = e.clientX - raterDiv.getBoundingClientRect().left;
+                    const rating = Math.ceil((clickX / raterWidth) * 5);
+
+                    // 계산된 별점 값을 숨겨진 input 요소에 설정
+                    ratingInput.value = rating;
+
+                    // 별점 UI 업데이트
+                    updateStars(rating);
+                });
+
+                // 별점 UI를 업데이트하는 함수
+                function updateStars(rating) {
+                    // 별점 값에 비례하여 너비 퍼센트를 계산
+                    const percentage = (rating / 5) * 100;
+                    // 별점 UI의 별 부분에 너비 스타일 적용
+                    raterDiv.querySelector('.star-value').style.width = percentage + '%';
+                    // 별점 UI의 title 속성 업데이트 (예: "4/5")
+                    raterDiv.setAttribute('title', rating + '/5');
+                }
+            });
+        </script>
    </body>
 </html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.BK._OliveCustomer.ReviewMapper">
+    <select id="insertReview" parameterType="map" statementType="CALLABLE">
+        {
+            call INSERT_REVIEW(
+                #{P_RATING, mode=IN, jdbcType=NUMERIC},
+                #{P_CONTENT, mode=IN, jdbcType=VARCHAR},
+                #{P_REVIEWIMG, mode=IN, jdbcType=VARCHAR},
+                #{P_ITEMDTLID, mode=IN, jdbcType=NUMERIC},
+                #{P_REVIEWID, mode=OUT, jdbcType=NUMERIC}
+            )
+        }
+    </select>
+</mapper>
