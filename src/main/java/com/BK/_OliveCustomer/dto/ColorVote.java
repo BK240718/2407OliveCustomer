@@ -7,5 +7,5 @@ public class ColorVote {
     private int voteId;
     private int itemDtlId;
     private int reviewId;
-    private String color;
+    private int color;
 }

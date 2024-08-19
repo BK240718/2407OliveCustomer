@@ -63,25 +63,25 @@
                                  <div class="row">
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck1">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="1" id="flexCheck1">
                                              <label class="form-check-label" for="flexCheck1">봄 웜 라이트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck2">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="4" id="flexCheck2">
                                              <label class="form-check-label" for="flexCheck2">여름 쿨 라이트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck3">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="7" id="flexCheck3">
                                              <label class="form-check-label" for="flexCheck3">가을 웜 뮤트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck4">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="10" id="flexCheck4">
                                              <label class="form-check-label" for="flexCheck4">겨울 쿨 브라이트</label>
                                          </div>
                                      </div>
@@ -90,25 +90,25 @@
                                  <div class="row">
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck5">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="2" id="flexCheck5">
                                              <label class="form-check-label" for="flexCheck5">봄 웜 트루</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck6">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="5" id="flexCheck6">
                                              <label class="form-check-label" for="flexCheck6">여름 쿨 트루</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck7">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="8" id="flexCheck7">
                                              <label class="form-check-label" for="flexCheck7">가을 웜 트루</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck8">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="11" id="flexCheck8">
                                              <label class="form-check-label" for="flexCheck8">겨울 쿨 트루</label>
                                          </div>
                                      </div>
@@ -117,25 +117,25 @@
                                  <div class="row">
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck9">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="3" id="flexCheck9">
                                              <label class="form-check-label" for="flexCheck9">봄 웜 브라이트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck10">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="6" id="flexCheck10">
                                              <label class="form-check-label" for="flexCheck10">여름 쿨 뮤트</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck11">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="9" id="flexCheck11">
                                              <label class="form-check-label" for="flexCheck11">가을 웜 딥</label>
                                          </div>
                                      </div>
                                      <div class="col">
                                          <div class="form-check">
-                                             <input class="form-check-input" type="checkbox" name="colors" value="" id="flexCheck12">
+                                             <input class="form-check-input" type="checkbox" name="colors" value="12" id="flexCheck12">
                                              <label class="form-check-label" for="flexCheck12">겨울 쿨 딥</label>
                                          </div>
                                      </div>
@@ -168,7 +168,7 @@
                         </div>
                         <!-- button -->
                         <div class="d-flex justify-content-end">
-                            <a href="#" class="btn btn-primary">Submit Review</a>
+                            <button type="submit" class="btn btn-primary">Submit Review</button>
                         </div>
                     </form>
                 </div>

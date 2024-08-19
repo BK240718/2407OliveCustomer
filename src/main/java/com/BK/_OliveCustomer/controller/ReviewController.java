@@ -4,11 +4,11 @@ import com.BK._OliveCustomer.dto.ItemDTL;
 import com.BK._OliveCustomer.dto.Review;
 import com.BK._OliveCustomer.service.ImgUploadService;
 import com.BK._OliveCustomer.service.ItemDTLService;
+import com.BK._OliveCustomer.service.ReviewNColorVoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +24,7 @@ public class ReviewController {
 
     private final ItemDTLService itemDTLService;
     private final ImgUploadService imgUploadService;
+    private final ReviewNColorVoteService reviewNColorVoteService;
 
     @RequestMapping(value = "listReview")
     public String listReview(Model model) {
@@ -34,14 +35,14 @@ public class ReviewController {
     public String popupToInsertReview(@RequestParam("itemDtlId") int itemDtlId,
                                       Model model) {
 
-        System.out.println("ReviewController popupToInsertReview Start");
-        System.out.println("itemDtlId = " + itemDtlId);
+        log.info("ReviewController popupToInsertReview Start");
+        log.info("itemDtlId = {}", itemDtlId);
 
         ItemDTL itemDTL = new ItemDTL();
         itemDTL = itemDTLService.oneItemDTL(itemDtlId);
 
         model.addAttribute("itemDTL", itemDTL);
-        System.out.println("itemDTL.getItemDtlId() = " + itemDTL.getItemDtlId());
+        log.info("itemDTL.getItemDtlId() = {}", itemDTL.getItemDtlId());
 
         return "review/popupToInsertReview";
     }
@@ -50,11 +51,12 @@ public class ReviewController {
     @PostMapping(value = "insertReviewNVote")
     public String insertReviewNVote(@RequestParam("itemDtlId") int itemDtlId,
                                     @RequestParam("rating") int rating,
-                                    @RequestParam("colors")List<String> colors,
+                                    @RequestParam("colors")List<Integer> colors,
                                     @RequestParam("content") String content,
-                                    @RequestParam("reviewImg")MultipartFile[] reviewImgsFile) {
+                                    @RequestParam("reviewImg")MultipartFile[] reviewImgsFile,
+                                    Model model) {
 
-        System.out.println("ReviewController insertReviewNVote Start");
+        log.info("ReviewController insertReviewNVote Start");
 
         // 1. reviewImg 업로드
         List<String> reviewImgUrls = new ArrayList<>();
@@ -65,15 +67,24 @@ public class ReviewController {
         // 2. reviewImgUrls 리스트를 JSON 배열 형식으로 변환
         String reviewImgUrlsJson = imgUploadService.convertListToJson(reviewImgUrls);
 
-        // 3. 업로드 된 이미지 URL 을 객체 Review 에 저장
+        // 3. Review 객체 생성
         Review review = new Review();
+        review.setRating(rating);
+        review.setContent(content);
         review.setReviewImg(reviewImgUrlsJson);
+        review.setItemDtlId(itemDtlId);
 
-        // 4. Review Insert 작업
+        // 4. Review 및 ColorVote Insert 작업
+        try {
+            int insertResult = reviewNColorVoteService.insertReviewNColorVotes(review, colors);
+            log.info("ReviewController insertReviewNVote insertResult = {}", insertResult);
+        } catch (Exception e) {
+            log.error("Failed to insert review & colorVotes", e);
+            model.addAttribute("msg", "입력 실패");
+            return "forward:popupToInsertReview";
+        }
 
-
-
-        return "redirect:/";
+        return "forward:popupToInsertReview";
     }
 
 
