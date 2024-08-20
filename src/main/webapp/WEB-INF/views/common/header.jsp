@@ -158,7 +158,7 @@
                            </a>
                         </div>
                         <div class="list-inline-item me-5 me-lg-0">
-                           <a class="text-muted position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" href="#offcanvasExample" role="button" aria-controls="offcanvasRight">
+                           <a href="listCart" class="text-muted position-relative" role="button">
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
                                  width="20"
