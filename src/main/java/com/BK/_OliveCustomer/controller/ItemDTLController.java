@@ -23,12 +23,12 @@ public class ItemDTLController {
                                        @RequestParam(value = "currentPage", required = false) String currentPage,
                                        Model model) {
 
-        System.out.println("ItemDTLController listItemDTLBySection Start");
+        log.info("ItemDTLController listItemDTLBySection Start");
 
         // 1. ItemDTL 객체 생성 및 sectionId 설정
         ItemDTL itemDTL = new ItemDTL();
         itemDTL.setSectionId(sectionId);
-        System.out.println("itemDTL.getSectionId() = " + itemDTL.getSectionId());
+        log.info("itemDTL.getSectionId() = {}", itemDTL.getSectionId());
 
         // 2. ItemDTL by SectionId 전체 Cnt
         int countItemDTLBySection = itemDTLService.countItemDTLBySection(sectionId);
@@ -41,7 +41,7 @@ public class ItemDTLController {
 
         // 3. Select List
         List<ItemDTL> listItemDTLBySection = itemDTLService.listItemDTLBySection(itemDTL);
-        System.out.println("ItemDTLController listItemDTLBySection.size() = " + listItemDTLBySection.size());
+        log.info("ItemDTLController listItemDTLBySection.size() = {}", listItemDTLBySection.size());
 
         model.addAttribute("countItemDTLBySection",countItemDTLBySection);
         model.addAttribute("listItemDTLBySection",listItemDTLBySection);
@@ -56,7 +56,7 @@ public class ItemDTLController {
     public String oneItemDTL(@RequestParam("itemDTLId") int itemDTLId,
                              Model model) {
 
-        System.out.println("ItemDTLController oneItemDTL Start");
+        log.info("ItemDTLController oneItemDTL Start");
 
         ItemDTL itemDTL = itemDTLService.oneItemDTL(itemDTLId);
 

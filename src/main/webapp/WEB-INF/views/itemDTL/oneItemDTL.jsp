@@ -97,7 +97,7 @@
                            <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
                               <!-- button -->
                               <!-- btn -->
-                              <button type="button" class="btn btn-primary">
+                              <button type="button" class="btn btn-primary" id="insert2Cart" data-itemDTL-id="${itemDTL.itemDtlId}">
                                  <i class="feather-icon icon-shopping-bag me-2"></i>
                                  Add to cart
                               </button>
@@ -269,6 +269,28 @@
             </div>
          </section>
       </main>
+
+      <!-- Modal -->
+      <div class="modal fade" id="modalItemInserted2Cart" tabindex="-1" role="dialog" aria-labelledby="modalItemInserted2CartLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <%@ include file="/WEB-INF/views/common/footer.jsp" %>
       <!-- Javascript-->
       <script src="../assets/libs/rater-js/index.js"></script>
@@ -288,5 +310,34 @@
       <script src="../assets/libs/slick-carousel/slick/slick.min.js"></script>
       <script src="../assets/js/vendors/slick-slider.js"></script>
       <script src="../assets/js/vendors/dropzone.js"></script>
+
+      <script>
+        document.getElementById('insert2Cart').addEventListener('click', function() {
+
+            const itemDTLId = this.getAttribute('data-itemDTL-id');
+
+            // 서버에 POST 요청 보내는 fetch API 호출
+            fetch('/insert-to-cart', {
+                method: 'POST', // HTTP 메서드 지정 (POST 요청)
+                headers: {
+                    'Content-Type': 'application/json'  // 요청 본문이 JSON 형식임을 명시
+                },
+                body: JSON.stringify({itemDtlId:itemDtlId}) // 요청 본문에 JSON 형식으로 데이터 전송
+            })
+            .then(response => response.json())  // 응답을 JSON 형식으로 변환
+            .then(data => {
+                if (data.success) { // 서버 응답 데이터에서 success 필드가 true 인 경우
+                    // 서버로부터 성공 응답을 받으면 모달을 띄운다
+                    var Modal = new bootstrap.Modal(document.getElementById('modalItemInserted2Cart'));
+                    Modal.show();
+                } else {
+                    alert('Fail to add product to cart');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+      </script>
    </body>
 </html>
