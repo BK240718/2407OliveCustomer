@@ -89,7 +89,7 @@
                            <!-- input -->
                            <div class="input-group input-spinner">
                               <input type="button" value="-" class="button-minus btn btn-sm" data-field="quantity" />
-                              <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input" />
+                              <input type="number" step="1" max="10" value="1" id="quantity" name="quantity" class="quantity-field form-control-sm form-input" />
                               <input type="button" value="+" class="button-plus btn btn-sm" data-field="quantity" />
                            </div>
                         </div>
@@ -315,6 +315,8 @@
         document.getElementById('insert2Cart').addEventListener('click', function() {
 
             const itemDTLId = this.getAttribute('data-itemDTL-id');
+            const quantity = document.getElementById('quantity').value;
+            const redirectUrl = encodeURIComponent(window.location.href);
 
             // 서버에 POST 요청 보내는 fetch API 호출
             fetch('/insert-to-cart', {
@@ -322,7 +324,11 @@
                 headers: {
                     'Content-Type': 'application/json'  // 요청 본문이 JSON 형식임을 명시
                 },
-                body: JSON.stringify({itemDtlId:itemDtlId}) // 요청 본문에 JSON 형식으로 데이터 전송
+                body: JSON.stringify({
+                    itemDtlId:itemDtlId,
+                    quantity: quantity,
+                    redirectUrl: redirectUrl
+                }) // 요청 본문에 JSON 형식으로 데이터 전송
             })
             .then(response => response.json())  // 응답을 JSON 형식으로 변환
             .then(data => {

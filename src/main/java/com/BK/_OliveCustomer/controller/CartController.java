@@ -25,6 +25,7 @@ public class CartController {
         return "cart/listCart";
     }
 
+
     @ResponseBody
     @PostMapping("/insert-to-cart")
     public ResponseEntity<Map <String, Object>> insert2Cart
@@ -32,6 +33,10 @@ public class CartController {
              HttpSession session) {
 
         log.info("CartController insert2Cart Start");
+
+        int itemDtlId   = Integer.parseInt(payload.get("itemDtlId").toString());
+        int quantity    = Integer.parseInt(payload.get("quantity").toString());
+        int customerId  = (int) session.getAttribute("customerId");
 
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);

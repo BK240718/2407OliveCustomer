@@ -26,7 +26,8 @@ public class CustomerController {
     public String listCustomer(@RequestParam(value = "currentPage", required = false) String currentPage,
                                Customer customer,
                                Model model){
-        System.out.println("CustomerController listCustomer Start");
+
+        log.info("CustomerController listCustomer Start");
 
         // Customer 전체 Cnt
         int totalCustomer = customerService.totalCustomer();
@@ -36,22 +37,24 @@ public class CustomerController {
         return "main";
     }
 
+    // 헤더 > 마이페이지 아이콘 > 로그인 모달
     @RequestMapping(value = "oneCustomerForSignIn")
     public String oneCustomerForSignIn(@RequestHeader(value = "Referer", required = false) String referer,
                                        @ModelAttribute Customer customerP,
                                        HttpSession session,
                                        Model model) {
 
-        System.out.println("CustomerController oneCustomerForSignIn Start");
+        log.info("CustomerController oneCustomerForSignIn Start");
+        log.info("referer = {}", referer);
 
         Customer customer = customerService.oneCustomerForSignIn(customerP);
-        System.out.println("oneCustomerForSignIn customer.getCustID() = " + customer.getCustomerId());
 
         if (customer != null) {
+            log.info("oneCustomerForSignIn customer.getCustID() = {}", customer.getCustomerId());
             session.setAttribute("customerId", customer.getCustomerId());
             return "redirect:listInvoice";
         } else {
-            session.setAttribute("loginError", "Invalid email or password");
+            model.addAttribute("loginError", "Invalid email or password");
             return "redirect:" + (referer != null ? referer : "/");
         }
     }
