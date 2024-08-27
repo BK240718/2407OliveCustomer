@@ -314,23 +314,40 @@
       <script>
         document.getElementById('insert2Cart').addEventListener('click', function() {
 
-            const itemDTLId = this.getAttribute('data-itemDTL-id');
+            const itemDtlId = this.getAttribute('data-itemDTL-id');
             const quantity = document.getElementById('quantity').value;
             const redirectUrl = encodeURIComponent(window.location.href);
+
+            console.log("Redirect URL:", redirectUrl);
+
+            const payload = {
+                    itemDtlId: itemDtlId,
+                    quantity: quantity,
+                    redirectUrl: redirectUrl
+                };
 
             // 서버에 POST 요청 보내는 fetch API 호출
             fetch('/insert-to-cart', {
                 method: 'POST', // HTTP 메서드 지정 (POST 요청)
                 headers: {
-                    'Content-Type': 'application/json'  // 요청 본문이 JSON 형식임을 명시
+                    'Content-Type': 'application/json',  // 요청 본문이 JSON 형식임을 명시
+                    'X-Requested-With': 'XMLHttpRequest'
                 },
-                body: JSON.stringify({
-                    itemDtlId:itemDtlId,
-                    quantity: quantity,
-                    redirectUrl: redirectUrl
-                }) // 요청 본문에 JSON 형식으로 데이터 전송
+                body: JSON.stringify(payload) // 요청 본문에 JSON 형식으로 데이터 전송
             })
-            .then(response => response.json())  // 응답을 JSON 형식으로 변환
+            .then(response => {
+                if (response.status === 401) {   // 로그인 필요 시
+                    return response.json().then(data => {
+                        if (data.redirectUrl) {
+                            window.location.href = data.redirectUrl;
+                        } else {
+                            console.error('Redirect URL not found in response');
+                        }
+                    });
+                } else {
+                    return response.json();
+                }
+            })
             .then(data => {
                 if (data.success) { // 서버 응답 데이터에서 success 필드가 true 인 경우
                     // 서버로부터 성공 응답을 받으면 모달을 띄운다

@@ -2,9 +2,11 @@ package com.BK._OliveCustomer.dao;
 
 import com.BK._OliveCustomer.dto.Customer;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class CustomerDaoImpl implements CustomerDao {
@@ -15,17 +17,16 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public int totalCustomer() {
 
-        System.out.println("CustomerDaoImpl totalCustomer Start");
+        log.info("CustomerDaoImpl totalCustomer Start");
         int totalCustomerCnt = 0;
 
         try {
 
             totalCustomerCnt = session.selectOne("customerTotal");
-            System.out.println("totCustomerCnt = " + totalCustomerCnt);
+            log.info("totCustomerCnt = {}", totalCustomerCnt);
         } catch (Exception e) {
-            System.out.println("CustomerDaoImpl totalCustomer Exception = "+ e.getMessage()) ;
+            log.info("CustomerDaoImpl totalCustomer Exception = {}", e.getMessage());
         }
-
 
         return totalCustomerCnt;
     }
@@ -33,13 +34,13 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Customer oneCustomerForSignIn(Customer customerP) {
 
-        System.out.println("CustomerDaoImpl oneCustomerForSignIn Start");
+        log.info("CustomerDaoImpl oneCustomerForSignIn Start");
         Customer customer = new Customer();
 
         try {
             customer = session.selectOne("oneCustomerForSignIn", customerP);
         } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            log.info("e.getMessage() = {}", e.getMessage());
         }
 
         return customer;

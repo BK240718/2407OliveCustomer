@@ -3,8 +3,10 @@ package com.BK._OliveCustomer.service;
 import com.BK._OliveCustomer.dao.CustomerDao;
 import com.BK._OliveCustomer.dto.Customer;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService{
@@ -14,10 +16,10 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public int totalCustomer() {
 
-        System.out.println("CustomerServiceImpl totalCustomer Start");
+        log.info("CustomerServiceImpl totalCustomer Start");
         int totalCustomerCnt = customerDao.totalCustomer();
 
-        System.out.println("totCustomerCnt = " + totalCustomerCnt);
+        log.info("totCustomerCnt = {}", totalCustomerCnt);
 
         return totalCustomerCnt;
     }
@@ -25,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public Customer oneCustomerForSignIn(Customer customerP) {
 
-        System.out.println("CustomerServiceImpl oneCustomerForSignIn Start");
+        log.info("CustomerServiceImpl oneCustomerForSignIn Start");
 
         Customer customer = new Customer();
         customer = customerDao.oneCustomerForSignIn(customerP);

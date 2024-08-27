@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.BK._OliveCustomer.CartItemMapper">
+    <insert id="insertCartItem" parameterType="cartItem">
+        insert into CartItem VALUES (
+        CartItemId_SEQ.NEXTVAL,
+        #{cartId},
+        #{itemDtlId},
+        #{quantity},
+        #{addedDate},
+        #{status}
+        )
+    </insert>
+</mapper>

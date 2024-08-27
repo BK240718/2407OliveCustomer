@@ -69,6 +69,8 @@ public class ItemDTLController {
         // Related Items
         List<ItemDTL> listItemDTLByItemId = itemDTLService.listItemDTLByItemId(itemDTL);
 
+        log.info("itemDTL.getItemDtlId() = {}", itemDTL.getItemDtlId());
+
         model.addAttribute("itemDTL", itemDTL);
         model.addAttribute("thumbnailList", thumbnailList);
         model.addAttribute("detailImgList", detailImgList);

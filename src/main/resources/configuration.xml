@@ -12,5 +12,7 @@
         <typeAlias alias="Invoice" type="com.BK._OliveCustomer.dto.Invoice"/>
         <typeAlias alias="Review" type="com.BK._OliveCustomer.dto.Review"/>
         <typeAlias alias="ColorVote" type="com.BK._OliveCustomer.dto.ColorVote"/>
+        <typeAlias alias="Cart" type="com.BK._OliveCustomer.dto.Cart"/>
+        <typeAlias alias="CartItem" type="com.BK._OliveCustomer.dto.CartItem"/>
     </typeAliases>
 </configuration>

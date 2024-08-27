@@ -55,14 +55,15 @@
                         <p>Welcome back to FreshCart! Enter your email to get started.</p>
                      </div>
 
-                     <form class="needs-validation" novalidate>
+                     <form action="/login" method="post" class="needs-validation" novalidate>
+                        <input type="hidden" name="redirectUrl" value="${redirectUrl}" />
                         <div class="row g-3">
                            <!-- row -->
 
                            <div class="col-12">
                               <!-- input -->
                               <label for="formSigninEmail" class="form-label visually-hidden">Email address</label>
-                              <input type="email" class="form-control" id="formSigninEmail" placeholder="Email" required />
+                              <input type="email" name="email" class="form-control" id="formSigninEmail" placeholder="Email" required />
                               <div class="invalid-feedback">Please enter name.</div>
                            </div>
                            <div class="col-12">
@@ -70,7 +71,7 @@
                               <div class="password-field position-relative">
                                  <label for="formSigninPassword" class="form-label visually-hidden">Password</label>
                                  <div class="password-field position-relative">
-                                    <input type="password" class="form-control fakePassword" id="formSigninPassword" placeholder="*****" required />
+                                    <input type="password" name="password" class="form-control fakePassword" id="formSigninPassword" placeholder="*****" required />
                                     <span><i class="bi bi-eye-slash passwordToggler"></i></span>
                                     <div class="invalid-feedback">Please enter password.</div>
                                  </div>
@@ -96,12 +97,6 @@
                               <a href="../pages/signup.html">Sign Up</a>
                            </div>
                         </div>
-                        <!-- Error message -->
-                        <div id="loginError" style="color: red;">
-                            <c:if test="${not empty loginError}">
-                                ${loginError}
-                            </c:if>
-                        </div>
                      </form>
                   </div>
                </div>
@@ -124,9 +119,15 @@
 
       <script>
           document.addEventListener('DOMContentLoaded', function() {
-              const loginError = '${loginError}'; // JSP 방식
-              if (loginError) {
-                  document.getElementById('loginError').innerText = loginError;
+
+              // EL을 사용하여 loginError 값을 가져옴
+              const loginError = '${loginError}';
+
+              // 디버깅을 위한 로그
+              console.log("Login Error:", loginError);
+
+              if (loginError.trim() !== "") {
+                  alert(loginError);
               }
           });
       </script>
