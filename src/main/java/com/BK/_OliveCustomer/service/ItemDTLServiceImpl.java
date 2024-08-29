@@ -5,11 +5,13 @@ import com.BK._OliveCustomer.dto.ItemDTL;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ItemDTLServiceImpl implements ItemDTLService {
@@ -20,10 +22,10 @@ public class ItemDTLServiceImpl implements ItemDTLService {
     @Override
     public List<ItemDTL> listItemDTLBySection(ItemDTL itemDTL) {
 
-        System.out.println("ItemDTLServiceImpl listItemDTLBySection Start");
+        log.info("listItemDTLBySection Start");
 
         List<ItemDTL> listItemDTLBySection = itemDTLDao.listItemDTLBySection(itemDTL);
-        System.out.println("ItemDTLServiceImpl listItemDTLBySection.size() = " + listItemDTLBySection.size());
+        log.info("listItemDTLBySection.size() = {}", listItemDTLBySection.size());
 
         return listItemDTLBySection;
     }
@@ -32,9 +34,9 @@ public class ItemDTLServiceImpl implements ItemDTLService {
     @Override
     public int countItemDTLBySection(int sectionId) {
 
-        System.out.println("ItemDTLServiceImpl countItemDTLBySection Start");
+        log.info("countItemDTLBySection Start");
         int countItemDTLBySection = itemDTLDao.countItemDTLBySection(sectionId);
-        System.out.println("ItemDTLServiceImpl countItemDTLBySection = " + countItemDTLBySection);
+        log.info("countItemDTLBySection = {}", countItemDTLBySection);
 
         return countItemDTLBySection;
     }
@@ -43,7 +45,7 @@ public class ItemDTLServiceImpl implements ItemDTLService {
     @Override
     public ItemDTL oneItemDTL(int itemDTLId) {
 
-        System.out.println("ItemDTLServiceImpl oneItemDTL Start");
+        log.info("oneItemDTL Start");
         ItemDTL itemDTL = itemDTLDao.oneItemDTL(itemDTLId);
 
         return itemDTL;
@@ -53,7 +55,7 @@ public class ItemDTLServiceImpl implements ItemDTLService {
     @Override
     public List<ItemDTL> listItemDTLByItemId(ItemDTL itemDTL) {
 
-        System.out.println("ItemDTLServiceImpl listItemDTLByItemId Start");
+        log.info("listItemDTLByItemId Start");
         List<ItemDTL> listItemDTLByItemId = itemDTLDao.listItemDTLByItemId(itemDTL);
 
         return listItemDTLByItemId;
@@ -64,7 +66,7 @@ public class ItemDTLServiceImpl implements ItemDTLService {
     @Override
     public List<String> convertJsonToList(String jsonString) {
 
-        System.out.println("ItemDTLServiceImpl convertJsonToList Start");
+        log.info("convertJsonToList Start");
 
         List<String> list = new ArrayList<>();
         // ObjectMapper 클래스:    JSON 문자열 <-> Java 객체 변환

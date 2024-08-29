@@ -13,4 +13,33 @@
         #{status}
         )
     </insert>
+
+    <select id="listCartByCustomerId" parameterType="map" resultType="cartItem">
+        SELECT
+            i.COLORIMG AS COLORIMG,
+            i.COLORNAME AS colorName,
+            i.SALESPRICE AS SALESPRICE,
+            it.ITEMNAME AS itemName,
+            SUM(ci.QUANTITY) AS totalQuantity,
+            SUM(ci.QUANTITY * i.SALESPRICE) AS totalPrice
+        FROM
+            cart c,
+            cartItem ci,
+            itemDtl i,
+            item it
+        WHERE
+            c.CARTID = ci.CARTID
+            AND ci.ITEMDTLID = i.ITEMDTLID
+            AND i.ITEMID = it.ITEMID
+            AND c.CUSTOMERID = #{customerId}
+            AND ci.STATUS = #{status}
+        GROUP BY
+            i.COLORIMG,
+            i.COLORNAME,
+            i.SALESPRICE,
+            it.ITEMNAME,
+            ci.ITEMDTLID
+        ORDER BY
+            i.COLORIMG
+    </select>
 </mapper>

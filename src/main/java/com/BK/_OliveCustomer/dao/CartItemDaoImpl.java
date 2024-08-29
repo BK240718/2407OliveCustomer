@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @Repository
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class CartItemDaoImpl implements CartItemDao {
     @Override
     public int insertCartItem(CartItem cartItem) {
 
-        log.info("CartItemDaoImpl insertCartItem Start");
+        log.info("insertCartItem Start");
 
         int insertResult = 0;
 
@@ -27,5 +30,22 @@ public class CartItemDaoImpl implements CartItemDao {
         }
 
         return insertResult;
+    }
+
+
+    @Override
+    public List<CartItem> listCartByCustomerId(Map<String, Object> params) {
+
+        log.info("listCartByCustomerId Start");
+        List<CartItem> listCartByCustomerId = null;
+
+        try {
+            listCartByCustomerId = session.selectList("listCartByCustomerId", params);
+            log.info("listCartByCustomerId.size() = {}", listCartByCustomerId.size());
+        } catch (Exception e) {
+            log.info("e.getMessage() = {}", e.getMessage());
+        }
+
+        return listCartByCustomerId;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -41,5 +42,21 @@ public class CartNCartItemServiceImpl implements CartNCartItemService {
         int insertResult = cartItemDao.insertCartItem(cartItem);
 
         return insertResult;
+    }
+
+
+    @Override
+    public List<CartItem> listCartByCustomerId(Integer customerId) {
+
+        log.info("listCartByCustomerId Start");
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("customerId", customerId);
+        params.put("status", 1);
+
+        List<CartItem> listCartByCustomerId = cartItemDao.listCartByCustomerId(params);
+        log.info("listCartByCustomerId.size() = {}", listCartByCustomerId.size());
+
+        return listCartByCustomerId;
     }
 }

@@ -2,11 +2,13 @@ package com.BK._OliveCustomer.dao;
 
 import com.BK._OliveCustomer.dto.ItemDTL;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class ItemDTLDaoImpl implements ItemDTLDao {
@@ -16,14 +18,14 @@ public class ItemDTLDaoImpl implements ItemDTLDao {
     @Override
     public List<ItemDTL> listItemDTLBySection(ItemDTL itemDTL) {
 
-        System.out.println("ItemDTLDaoImpl listItemDTLBySection Start");
+        log.info("listItemDTLBySection Start");
         List<ItemDTL> listItemDTLBySection = null;
 
         try {
             listItemDTLBySection = session.selectList("listItemDTLBySection", itemDTL);
-            System.out.println("ItemDTLDaoImpl listItemDTLBySection.size() = " + listItemDTLBySection.size());
+            log.info("ItemDTLDaoImpl listItemDTLBySection.size() = {}", listItemDTLBySection.size());
         } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            log.info("e.getMessage() = {}", e.getMessage());
         }
 
         return listItemDTLBySection;
@@ -33,14 +35,14 @@ public class ItemDTLDaoImpl implements ItemDTLDao {
     @Override
     public int countItemDTLBySection(int sectionId) {
 
-        System.out.println("ItemDTLDaoImpl CountItemDTLBySection Start");
+        log.info("CountItemDTLBySection Start");
         int countItemDTLBySection = 0;
 
         try {
             countItemDTLBySection = session.selectOne("countItemDTLBySection", sectionId);
-            System.out.println("ItemDTLDaoImpl countItemDTLBySection = " + countItemDTLBySection);
+            log.info("ItemDTLDaoImpl countItemDTLBySection = {}", countItemDTLBySection);
         } catch (Exception e) {
-            System.out.println("ItemDTLDaoImpl countItemDTLBySection e.getMessage() = " + e.getMessage());
+            log.info("ItemDTLDaoImpl countItemDTLBySection e.getMessage() = {}", e.getMessage());
         }
 
         return countItemDTLBySection;
@@ -50,13 +52,13 @@ public class ItemDTLDaoImpl implements ItemDTLDao {
     @Override
     public ItemDTL oneItemDTL(int itemDtlId) {
 
-        System.out.println("ItemDTLDaoImpl oneItemDTL Start");
+        log.info("oneItemDTL Start");
         ItemDTL itemDTL = new ItemDTL();
 
         try {
             itemDTL = session.selectOne("oneItemDTL", itemDtlId);
         } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            log.info("e.getMessage() = {}", e.getMessage());
         }
         return itemDTL;
     }
@@ -65,14 +67,14 @@ public class ItemDTLDaoImpl implements ItemDTLDao {
     @Override
     public List<ItemDTL> listItemDTLByItemId(ItemDTL itemDTL) {
 
-        System.out.println("ItemDTLDaoImpl listItemDTLByItemId Start");
+        log.info("listItemDTLByItemId Start");
         List<ItemDTL> listItemDTLByItemId = null;
 
         try {
             listItemDTLByItemId = session.selectList("listItemDTLByItemId", itemDTL);
-            System.out.println("listItemDTLByItemId.size() = " + listItemDTLByItemId.size());
+            log.info("listItemDTLByItemId.size() = {}", listItemDTLByItemId.size());
         } catch (Exception e) {
-            System.out.println("e.getMessage() = " + e.getMessage());
+            log.info("e.getMessage() = {}", e.getMessage());
         }
 
         return listItemDTLByItemId;

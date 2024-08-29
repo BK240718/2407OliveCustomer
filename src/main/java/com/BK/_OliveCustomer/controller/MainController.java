@@ -91,22 +91,29 @@ public class MainController {
             // 쿠키에서 redirectUrl 읽기 및 삭제
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
+                // 쿠키 배열에서 하나씩 확인하면서 "redirectUrl"이라는 이름의 쿠키를 찾음
                 for (Cookie cookie : cookies) {
                     if ("redirectUrl".equals(cookie.getName())) {
                         try {
+                            // 해당 쿠키의 값을 디코딩해서 redirectUrl에 저장
+                            // 쿠키에 저장된 URL은 인코딩된 상태이므로, 다시 사람이 읽을 수 있는 형태로 변환함
                             redirectUrl = URLDecoder.decode(cookie.getValue(), "UTF-8");
                         } catch (UnsupportedEncodingException e) {
+                            // 인코딩 관련 오류가 발생하면 로그에 오류 메시지를 출력
                             log.error("UnsupportedEncodingException: {}", e.getMessage());
                         }
-                        cookie.setMaxAge(0); // 쿠키 삭제
+                        // 사용 후 해당 쿠키를 삭제하기 위해 유효 기간을 0으로 설정
+                        // 클라이언트의 브라우저에서 이 쿠키가 삭제됨
+                        cookie.setMaxAge(0);
                         cookie.setPath("/"); // 쿠키 경로 설정
                         response.addCookie(cookie);
-                        break;
+                        break;  // 쿠키를 찾았으니 더 이상 루프를 돌 필요가 없음
                     }
                 }
             }
 
             if (redirectUrl != null && !redirectUrl.isEmpty()) {
+                // 리디렉션 URL이 존재할 경우 해당 URL로 리디렉션
                 return "redirect:" + redirectUrl;
             } else {
                 return "redirect:/"; // 기본 페이지로 리디렉션
@@ -122,6 +129,19 @@ public class MainController {
             return "common/login";
         }
 
+    }
+
+
+    @ModelAttribute
+    public void addcommonAttributes(Model model, HttpSession session) {
+
+        log.info("addcommonAttributes Start");
+
+        Integer customerId = (Integer) session.getAttribute("customerId");
+
+        if (customerId != null) {
+
+        }
     }
 
 

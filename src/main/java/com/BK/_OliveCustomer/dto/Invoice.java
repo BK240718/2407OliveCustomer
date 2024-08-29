@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 public class Invoice {
     private int invoiceId;
-    private int customerId;
+    private Integer customerId;
     private String orderDate;
     private int totalPrice;
     private int status;

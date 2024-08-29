@@ -9,12 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -23,14 +21,6 @@ import java.util.Map;
 public class CartController {
 
     private final CartNCartItemService cartNCartItemService;
-
-    @RequestMapping(value = "listCart")
-    public String listCart(Model model) {
-
-        log.info("CartController listCart Start");
-
-        return "cart/listCart";
-    }
 
 
     @ResponseBody
@@ -60,6 +50,37 @@ public class CartController {
 
         return ResponseEntity.ok(response);
     }
+
+
+    @GetMapping("listCartByCustomerId")
+    public String listCartByCustomerId(HttpSession session, Model model) {
+
+        Integer customerId = (Integer) session.getAttribute("customerId");
+
+        if (customerId == null) {
+            // 세션에 customerId가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        // 세션에서 customerId를 가져와서 서비스 메서드 호출
+        List<CartItem> listCartByCustomerId = cartNCartItemService.listCartByCustomerId(customerId);
+
+        // 총합 계산
+        // 1. listCartByCustomerId 리스트를 스트림으로 변환
+        // 2. 스트림의 각 CartItem 객체에 대해 getTotalPrice() 메서드를 호출하여 총 가격을 가져옴
+        int subtotal = listCartByCustomerId.stream()
+                                                .mapToInt(CartItem::getTotalPrice)
+                                                .sum();
+        log.info("subtotal = {}", subtotal);
+
+        model.addAttribute("listCartByCustomerId", listCartByCustomerId);
+        model.addAttribute("subtotal", subtotal);
+
+        return "cart/listCart";
+    }
+
+
+
 
 
 }

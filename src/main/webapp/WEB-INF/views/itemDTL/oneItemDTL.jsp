@@ -275,17 +275,20 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalCenterTitle">선택 완료</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              ...
+            <div class="modal-body text-center">
+              <p>장바구니에 추가되었습니다</p>
+              <div class="mt-3">
+                  <button type="button" class="btn btn-outline-primary mb-2" data-bs-dismiss="modal">쇼핑계속하기</button>
+                  <button type="button" class="btn btn-primary mb-2" id="listCartByCustomerId">장바구니 확인</button>
+              </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+
             </div>
           </div>
         </div>
@@ -316,10 +319,12 @@
 
             const itemDtlId = this.getAttribute('data-itemDTL-id');
             const quantity = document.getElementById('quantity').value;
+            // 현재 페이지의 URL 을 가져와서 URL 인코딩 처리
             const redirectUrl = encodeURIComponent(window.location.href);
 
             console.log("Redirect URL:", redirectUrl);
 
+            // 서버에 전송할 데이터를 객체 형태로 만듦
             const payload = {
                     itemDtlId: itemDtlId,
                     quantity: quantity,
@@ -330,22 +335,23 @@
             fetch('/insert-to-cart', {
                 method: 'POST', // HTTP 메서드 지정 (POST 요청)
                 headers: {
-                    'Content-Type': 'application/json',  // 요청 본문이 JSON 형식임을 명시
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'Content-Type': 'application/json',     // 요청 본문이 JSON 형식임을 명시
+                    'X-Requested-With': 'XMLHttpRequest'    // Ajax 요청임을 명시
                 },
                 body: JSON.stringify(payload) // 요청 본문에 JSON 형식으로 데이터 전송
             })
             .then(response => {
-                if (response.status === 401) {   // 로그인 필요 시
+                if (response.status === 401) {   // 서버가 401 상태를 반환하는 경우 (로그인 필요)
                     return response.json().then(data => {
                         if (data.redirectUrl) {
+                            // 서버로부터 받은 리디렉션 URL로 이동
                             window.location.href = data.redirectUrl;
                         } else {
                             console.error('Redirect URL not found in response');
                         }
                     });
                 } else {
-                    return response.json();
+                    return response.json();     // 정상 응답을 JSON 형식으로 처리
                 }
             })
             .then(data => {
@@ -354,12 +360,19 @@
                     var Modal = new bootstrap.Modal(document.getElementById('modalItemInserted2Cart'));
                     Modal.show();
                 } else {
+                    // 실패시 경고창
                     alert('Fail to add product to cart');
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error:', error);     // 에러 발생 시 콘솔에 입력
             });
+        });
+
+
+        document.getElementById('listCartByCustomerId').addEventListener('click', function() {
+            // 버튼 클릭 시 페이지 이동
+            window.location.href = 'listCartByCustomerId';      // 컨트롤러 URL
         });
       </script>
    </body>
