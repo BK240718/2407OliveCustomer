@@ -42,4 +42,35 @@
         ORDER BY
             i.COLORIMG
     </select>
+
+    <update id="minusCartItem" parameterType="map">
+        UPDATE cartItem
+        SET QUANTITY = QUANTITY - #{adjustmentValue}
+        WHERE ITEMDTLID = #{itemDtlId}
+            AND CARTID = #{cartId}
+            AND STATUS = #{status}
+            AND QUANTITY > 0
+            AND ADDEDDATE = (
+                SELECT MIN(ADDEDDATE)
+                FROM cartItem
+                WHERE ITEMDTLID = #{itemDtlId}
+                    AND CARTID = #{cartId}
+                    AND STATUS = #{status}
+                )
+    </update>
+
+    <update id="plusCartItem" parameterType="map">
+        UPDATE cartItem
+        SET QUANTITY = QUANTITY + #{adjustmentValue}
+        WHERE ITEMDTLID = #{itemDtlId}
+            AND CARTID = #{cartId}
+            AND STATUS = #{status}
+            AND ADDEDDATE = (
+                SELECT MAX(ADDEDDATE)
+                FROM cartItem
+                WHERE ITEMDTLID = #{itemDtlId}
+                    AND CARTID = #{cartId}
+                    AND STATUS = #{status}
+                )
+    </update>
 </mapper>

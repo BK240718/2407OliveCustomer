@@ -4,10 +4,11 @@ import com.BK._OliveCustomer.dto.Cart;
 import com.BK._OliveCustomer.dto.CartItem;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CartNCartItemService {
 
     int insertCartNCartItem(Cart cart, CartItem cartItem);
 
-    List<CartItem> listCartByCustomerId(Integer customerId);
+    Map<String, Object> listCartByCustomerId(Integer customerId);
 }

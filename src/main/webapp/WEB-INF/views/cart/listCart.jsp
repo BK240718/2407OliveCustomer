@@ -148,9 +148,9 @@
                                  <!-- list group item -->
                                  <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="me-auto">
-                                       <div>Item Subtotal</div>
+                                       <div>Sub Total</div>
                                     </div>
-                                    <span><fmt:formatNumber type="currency" currencySymbol="₩" value="${itemSubtotal}"/></span>
+                                    <span><fmt:formatNumber type="currency" currencySymbol="₩" value="${subtotal}"/></span>
                                  </li>
 
                                  <!-- list group item -->
@@ -158,14 +158,14 @@
                                     <div class="me-auto">
                                        <div>Shipping Cost</div>
                                     </div>
-                                    <span>$3.00</span>
+                                    <span><fmt:formatNumber type="currency" currencySymbol="₩" value="${shippingCost}"/></span>
                                  </li>
                                  <!-- list group item -->
                                  <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="me-auto">
-                                       <div class="fw-bold">Subtotal</div>
+                                       <div class="fw-bold">Grand Total</div>
                                     </div>
-                                    <span class="fw-bold"><fmt:formatNumber type="currency" currencySymbol="₩" value="${subtotal}"/></span>
+                                    <span class="fw-bold"><fmt:formatNumber type="currency" currencySymbol="₩" value="${grandTotal}"/></span>
                                  </li>
                               </ul>
                            </div>
@@ -173,7 +173,7 @@
                               <!-- btn -->
                               <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center" type="submit">
                                  Go to Checkout
-                                 <span class="fw-bold">$67.00</span>
+                                 <span class="fw-bold"><fmt:formatNumber type="currency" currencySymbol="₩" value="${grandTotal}"/></span>
                               </button>
                            </div>
                            <!-- text -->
@@ -216,5 +216,26 @@
 
       <!-- Theme JS -->
       <script src="../assets/js/theme.min.js"></script>
+
+      <script>
+        document.querySelectorAll('.button-minus, .button-plus').forEach(button => {
+            button.addEventListener('click', function() {
+                const isIncrement = this.classList.contains('button-plus');
+                const quantityInput = this.closest('.input-spinner').querySelector('.quantity-field');
+                let currentQuantity = parseInt(quantityInput.value);
+
+                // 수량을 증가 또는 감소
+                if (isIncrement) {
+                    currentQuantity++;
+                } else {
+                    currentQuantity--;
+                }
+
+                // 서버에 요청을 보낼 때 사용할 데이터
+                const adjustmentValue = isIncrement ? 1 : -1;
+                const itemDtlId = quantityInput.dataset.itemDtlId;
+            })
+        })
+      </script>
    </body>
 </html>

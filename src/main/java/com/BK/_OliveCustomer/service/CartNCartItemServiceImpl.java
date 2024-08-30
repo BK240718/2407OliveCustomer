@@ -46,10 +46,11 @@ public class CartNCartItemServiceImpl implements CartNCartItemService {
 
 
     @Override
-    public List<CartItem> listCartByCustomerId(Integer customerId) {
+    public Map<String, Object> listCartByCustomerId(Integer customerId) {
 
         log.info("listCartByCustomerId Start");
 
+        // 1. 장바구니 아이템 리스트 가져오기
         Map<String, Object> params = new HashMap<>();
         params.put("customerId", customerId);
         params.put("status", 1);
@@ -57,6 +58,24 @@ public class CartNCartItemServiceImpl implements CartNCartItemService {
         List<CartItem> listCartByCustomerId = cartItemDao.listCartByCustomerId(params);
         log.info("listCartByCustomerId.size() = {}", listCartByCustomerId.size());
 
-        return listCartByCustomerId;
+        Map<String, Object> result = new HashMap<>();
+
+        // 2. 총합 계산
+        // 2-1. listCartByCustomerId 리스트를 스트림으로 변환
+        // 2-2. 스트림의 각 CartItem 객체에 대해 getTotalPrice() 메서드를 호출하여 총 가격을 가져옴
+        int subtotal = listCartByCustomerId.stream()
+                                            .mapToInt(CartItem::getTotalPrice)
+                                            .sum();
+
+        // 3. 배송비 계산
+        int shippingCost = (subtotal > 30000) ? 0 : 2500;
+
+        // 결과 맵에 추가
+        result.put("listCartByCustomerId", listCartByCustomerId);
+        result.put("subtotal", subtotal);
+        result.put("shippingCost", shippingCost);
+        result.put("grandTotal", subtotal + shippingCost);
+
+        return result;
     }
 }
