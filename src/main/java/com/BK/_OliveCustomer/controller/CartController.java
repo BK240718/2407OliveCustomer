@@ -6,6 +6,7 @@ import com.BK._OliveCustomer.service.CartNCartItemService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,6 +72,22 @@ public class CartController {
         model.addAttribute("grandTotal", listCartByCustomerId.get("grandTotal"));
 
         return "cart/listCart";
+    }
+
+
+    @ResponseBody
+    @PostMapping("updateCartItemQuantity")
+    public ResponseEntity<String> updateCartItemQuantity(@ModelAttribute CartItem cartItem,
+                                                         @RequestParam("adjustmentValue") int adjustmentValue) {
+
+        log.info("updateCartItemQuantity Start");
+
+        try {
+            int updateResult = cartNCartItemService.updateCartItemQuantity(cartItem, adjustmentValue);
+            return ResponseEntity.ok("Quantity updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update quantity");
+        }
     }
 
 

@@ -26,7 +26,7 @@ public class CartItemDaoImpl implements CartItemDao {
         try {
             insertResult = session.insert("insertCartItem", cartItem);
         } catch (Exception e) {
-            log.info("e.getMessage() = {}", e.getMessage());
+            log.info("insertCartItem e.getMessage() = {}", e.getMessage());
         }
 
         return insertResult;
@@ -43,9 +43,25 @@ public class CartItemDaoImpl implements CartItemDao {
             listCartByCustomerId = session.selectList("listCartByCustomerId", params);
             log.info("listCartByCustomerId.size() = {}", listCartByCustomerId.size());
         } catch (Exception e) {
-            log.info("e.getMessage() = {}", e.getMessage());
+            log.info("listCartByCustomerId e.getMessage() = {}", e.getMessage());
         }
 
         return listCartByCustomerId;
+    }
+
+    @Override
+    public int updateCartItemQuantity(Map<String, Object> params) {
+
+        log.info("updateCartItemQuantity Start");
+        int updateResult = 0;
+
+        try {
+            updateResult = session.update("updateCartItemQuantity", params);
+            log.info("updateResult = {}", updateResult);
+        } catch (Exception e) {
+            log.info("updateCartItemQuantity e.getMessage() = {}", e.getMessage());
+        }
+
+        return updateResult;
     }
 }

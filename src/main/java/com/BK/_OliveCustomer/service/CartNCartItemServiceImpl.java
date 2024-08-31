@@ -78,4 +78,23 @@ public class CartNCartItemServiceImpl implements CartNCartItemService {
 
         return result;
     }
+
+    @Override
+    public int updateCartItemQuantity(CartItem cartItem, int adjustmentValue) {
+
+        log.info("updateCartItemQuantity Start");
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("adjustmentValue", adjustmentValue);
+        params.put("itemDtlId", cartItem.getItemDtlId());
+        params.put("customerId", cartItem.getCustomerId());
+
+        log.info("adjustmentValue = {}", adjustmentValue);
+        log.info("cartItem.getItemDtlId() = {}", cartItem.getItemDtlId());
+        log.info("cartItem.getCustomerId() = {}", cartItem.getCustomerId());
+
+        int updateResult = cartItemDao.updateCartItemQuantity(params);
+
+        return updateResult;
+    }
 }

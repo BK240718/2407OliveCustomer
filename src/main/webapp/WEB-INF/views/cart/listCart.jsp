@@ -115,7 +115,7 @@
                                         <!-- input -->
                                         <div class="input-group input-spinner">
                                            <input type="button" value="-" class="button-minus btn btn-sm" data-field="quantity" />
-                                           <input type="number" step="1" max="10" value="${listCart.totalQuantity}" name="quantity" class="quantity-field form-control-sm form-input" />
+                                           <input type="number" step="1" max="10" value="${listCart.totalQuantity}" data-item-dtl-id="${listCart.itemDtlId}" name="quantity" class="quantity-field form-control-sm form-input" />
                                            <input type="button" value="+" class="button-plus btn btn-sm" data-field="quantity" />
                                         </div>
                                      </div>
@@ -218,24 +218,33 @@
       <script src="../assets/js/theme.min.js"></script>
 
       <script>
-        document.querySelectorAll('.button-minus, .button-plus').forEach(button => {
-            button.addEventListener('click', function() {
-                const isIncrement = this.classList.contains('button-plus');
-                const quantityInput = this.closest('.input-spinner').querySelector('.quantity-field');
-                let currentQuantity = parseInt(quantityInput.value);
+        $('.button-minus, .button-plus').on('click', function() {
+            var button = $(this); // 클릭한 버튼
+            var inputField = button.siblings('input[name="quantity"]'); // 해당 수량 입력 필드
+            var itemDtlId = inputField.data('item-dtl-id'); // data-item-dtl-id 속성에서 itemDtlId 값 가져오기
+            var customerId = ${sessionScope.customerId};
+            var adjustmentValue = (button.val() === '+') ? 1 : -1; // 버튼에 따라 조정 값 설정
 
-                // 수량을 증가 또는 감소
-                if (isIncrement) {
-                    currentQuantity++;
-                } else {
-                    currentQuantity--;
+            // itemDtlId 값 확인
+            console.log('itemDtlId:', itemDtlId);
+
+            // AJAX 요청 보내기
+            $.ajax({
+                url: '/updateCartItemQuantity', // URL은 실제 요청할 URL로 바꾸세요
+                type: 'POST',
+                data: {
+                    itemDtlId: itemDtlId,
+                    customerId: customerId,
+                    adjustmentValue: adjustmentValue
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error('요청 실패:', status, error);
                 }
-
-                // 서버에 요청을 보낼 때 사용할 데이터
-                const adjustmentValue = isIncrement ? 1 : -1;
-                const itemDtlId = quantityInput.dataset.itemDtlId;
-            })
-        })
+            });
+        });
       </script>
    </body>
 </html>

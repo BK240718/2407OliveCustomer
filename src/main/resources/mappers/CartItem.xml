@@ -20,6 +20,7 @@
             i.COLORNAME AS colorName,
             i.SALESPRICE AS SALESPRICE,
             it.ITEMNAME AS itemName,
+            ci.itemdtlid AS itemdtlId,
             SUM(ci.QUANTITY) AS totalQuantity,
             SUM(ci.QUANTITY * i.SALESPRICE) AS totalPrice
         FROM
@@ -43,34 +44,27 @@
             i.COLORIMG
     </select>
 
-    <update id="minusCartItem" parameterType="map">
-        UPDATE cartItem
-        SET QUANTITY = QUANTITY - #{adjustmentValue}
-        WHERE ITEMDTLID = #{itemDtlId}
-            AND CARTID = #{cartId}
-            AND STATUS = #{status}
-            AND QUANTITY > 0
-            AND ADDEDDATE = (
-                SELECT MIN(ADDEDDATE)
-                FROM cartItem
-                WHERE ITEMDTLID = #{itemDtlId}
-                    AND CARTID = #{cartId}
-                    AND STATUS = #{status}
-                )
-    </update>
-
-    <update id="plusCartItem" parameterType="map">
+    <update id="updateCartItemQuantity" parameterType="map">
         UPDATE cartItem
         SET QUANTITY = QUANTITY + #{adjustmentValue}
-        WHERE ITEMDTLID = #{itemDtlId}
-            AND CARTID = #{cartId}
-            AND STATUS = #{status}
-            AND ADDEDDATE = (
-                SELECT MAX(ADDEDDATE)
+        WHERE CARTITEMID = (
+            SELECT CARTITEMID
+            FROM (
+                SELECT CARTITEMID
                 FROM cartItem
                 WHERE ITEMDTLID = #{itemDtlId}
-                    AND CARTID = #{cartId}
-                    AND STATUS = #{status}
+                AND CARTID IN (
+                    SELECT CARTID
+                    FROM cart
+                    WHERE CUSTOMERID = #{customerId}
                 )
+                AND STATUS = 1
+                <if test="adjustmentValue &lt; 0">
+                    AND QUANTITY > 0
+                </if>
+                ORDER BY ADDEDDATE ASC
+            )
+            WHERE ROWNUM = 1
+        )
     </update>
 </mapper>
