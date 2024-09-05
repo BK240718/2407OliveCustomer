@@ -91,7 +91,22 @@ public class CartController {
     }
 
 
+    @ResponseBody
+    @PostMapping("deleteCartItemNCart")
+    public Map<String, Object> deleteCartItemNCart(@ModelAttribute CartItem cartItem) {
 
+        log.info("deleteCartItemNCart Start");
+        Map<String, Object> response = new HashMap<>();
 
+        try {
+            int deleteResult = cartNCartItemService.deleteCartItemNCart(cartItem);
+            response.put("success", deleteResult > 0);
+        } catch (Exception e) {
+            response.put("success", false);
+            e.printStackTrace();
+        }
+
+        return response;
+    }
 
 }

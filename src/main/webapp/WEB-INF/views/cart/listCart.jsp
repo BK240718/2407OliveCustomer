@@ -62,11 +62,6 @@
                <div class="row">
                   <div class="col-lg-8 col-md-7">
                      <div class="py-3">
-                        <!-- alert -->
-                        <div class="alert alert-danger p-2" role="alert">
-                           You’ve got FREE delivery. Start
-                           <a href="#!" class="alert-link">checkout now!</a>
-                        </div>
                         <ul class="list-group list-group-flush">
                             <c:forEach var="listCart" items="${listCartByCustomerId}">
                                <!-- list group -->
@@ -185,21 +180,6 @@
                                  <a href="#!">Privacy Policy.</a>
                               </small>
                            </p>
-
-                           <!-- heading -->
-                           <div class="mt-8">
-                              <h2 class="h5 mb-3">Add Promo or Gift Card</h2>
-                              <form>
-                                 <div class="mb-2">
-                                    <!-- input -->
-                                    <label for="giftcard" class="form-label sr-only">Email address</label>
-                                    <input type="text" class="form-control" id="giftcard" placeholder="Promo or Gift Card" />
-                                 </div>
-                                 <!-- btn -->
-                                 <div class="d-grid"><button type="submit" class="btn btn-outline-dark mb-1">Redeem</button></div>
-                                 <p class="text-muted mb-0"><small>Terms & Conditions apply</small></p>
-                              </form>
-                           </div>
                         </div>
                      </div>
                   </div>
@@ -218,6 +198,7 @@
       <script src="../assets/js/theme.min.js"></script>
 
       <script>
+        // 수량 조정 시
         $('.button-minus, .button-plus').on('click', function() {
             var button = $(this); // 클릭한 버튼
             var inputField = button.siblings('input[name="quantity"]'); // 해당 수량 입력 필드
@@ -242,6 +223,35 @@
                 },
                 error: function(xhr, status, error) {
                     console.error('요청 실패:', status, error);
+                }
+            });
+        });
+
+
+        // remove 눌렀을 때
+        $(document).on('click', '.text-inherit', function(event) {
+            event.preventDefault(); // 링크 기본 동작 막기
+
+            var itemDtlId = $(this).closest('li').find('input[name="quantity"]').data('itemDtlId');
+            var customerId = ${sessionScope.customerId};
+
+            $.ajax({
+                url: '/deleteCartItemNCart',
+                type: 'POST',
+                data: {
+                    itemDtlId: itemDtlId,
+                    customerId: customerId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Item deleted successfully!');
+                        location.reload(); // 삭제 후 페이지 새로고침
+                    } else {
+                        alert('Failed to delete item.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error deleting item:', error);
                 }
             });
         });

@@ -97,4 +97,17 @@ public class CartNCartItemServiceImpl implements CartNCartItemService {
 
         return updateResult;
     }
+
+    @Override
+    public int deleteCartItemNCart(CartItem cartItem) {
+
+        log.info("deleteCartItemNCart");
+        log.info("deleteCartItemNCart cartItem.getItemDtlId() = {}", cartItem.getItemDtlId());
+        log.info("deleteCartItemNCart cartItem.getCustomerId() = {}", cartItem.getCustomerId());
+
+        int deleteResult = cartItemDao.deleteCartItemNCart(cartItem);
+        log.info("deleteResult = {}", deleteResult);
+
+        return deleteResult;
+    }
 }

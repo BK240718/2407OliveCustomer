@@ -12,4 +12,7 @@ public interface CartItemDao {
     List<CartItem> listCartByCustomerId(Map<String, Object> params);
 
     int updateCartItemQuantity(Map<String, Object> params);
+
+    int deleteCartItemNCart(CartItem cartItem);
+
 }

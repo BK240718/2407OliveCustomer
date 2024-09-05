@@ -40,6 +40,8 @@
             i.SALESPRICE,
             it.ITEMNAME,
             ci.ITEMDTLID
+        HAVING
+            SUM(ci.quantity) > 0
         ORDER BY
             i.COLORIMG
     </select>
@@ -67,4 +69,15 @@
             WHERE ROWNUM = 1
         )
     </update>
+
+    <select id="deleteCartItemNCart" parameterType="map" statementType="CALLABLE">
+        {
+            CALL DELETE_CART_ITEM_AND_CART(
+                #{itemDtlId,    mode=IN,    jdbcType=NUMERIC},
+                #{customerId,   mode=IN,    jdbcType=NUMERIC},
+                #{deleteResult, mode=OUT,   jdbcType=NUMERIC}
+            )
+        }
+    </select>
+
 </mapper>

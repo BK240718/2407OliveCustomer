@@ -13,4 +13,6 @@ public interface CartNCartItemService {
     Map<String, Object> listCartByCustomerId(Integer customerId);
 
     int updateCartItemQuantity(CartItem cartItem, int adjustmentValue);
+
+    int deleteCartItemNCart(CartItem cartItem);
 }
