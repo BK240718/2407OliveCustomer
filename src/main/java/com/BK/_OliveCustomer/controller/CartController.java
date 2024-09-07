@@ -56,6 +56,8 @@ public class CartController {
     @GetMapping("listCartByCustomerId")
     public String listCartByCustomerId(HttpSession session, Model model) {
 
+        log.info("listCartByCustomerId Start");
+
         Integer customerId = (Integer) session.getAttribute("customerId");
 
         if (customerId == null) {
