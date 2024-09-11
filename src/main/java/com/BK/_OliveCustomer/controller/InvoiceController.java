@@ -92,4 +92,27 @@ public class InvoiceController {
         return "invoice/insertInvoiceDtl";
     }
 
+    @RequestMapping(value = "insertInvoiceDtl2")
+    public String insertInvoiceDtl2(HttpSession session, Model model) {
+
+        log.info("insertInvoiceDtl2 Start");
+
+        Integer customerId = (Integer) session.getAttribute("customerId");
+
+        if (customerId == null) {
+            // 세션에 customerId가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        // 세션에서 customerId를 가져와서 서비스 메서드 호출
+        Map<String, Object> listCartByCustomerId = cartNCartItemService.listCartByCustomerId(customerId);
+
+        model.addAttribute("listCartByCustomerId", listCartByCustomerId.get("listCartByCustomerId"));
+        model.addAttribute("subtotal", listCartByCustomerId.get("subtotal"));
+        model.addAttribute("shippingCost", listCartByCustomerId.get("shippingCost"));
+        model.addAttribute("grandTotal", listCartByCustomerId.get("grandTotal"));
+
+        return "invoice/insertInvoiceDtl2";
+    }
+
 }

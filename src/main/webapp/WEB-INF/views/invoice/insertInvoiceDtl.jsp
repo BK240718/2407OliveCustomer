@@ -89,61 +89,54 @@
                                   </div>
                                   <div id="flush-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushExample">
                                      <div class="mt-5">
-                                        <div class="row">
-                                           <div class="col-xl-6 col-lg-12 col-md-6 col-12 mb-4">
-                                              <!-- form -->
-                                              <div class="card card-body p-6">
-                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="homeRadio" checked />
-                                                    <label class="form-check-label text-dark" for="homeRadio">Home</label>
-                                                 </div>
-                                                 <!-- address -->
-                                                 <address>
-                                                    <strong>Jitu Chauhan</strong>
-                                                    <br />
-
-                                                    4450 North Avenue Oakland,
-                                                    <br />
-
-                                                    Nebraska, United States,
-                                                    <br />
-
-                                                    <abbr title="Phone">P: 402-776-1106</abbr>
-                                                 </address>
-                                                 <span class="text-danger">Default address</span>
-                                              </div>
-                                           </div>
-                                           <div class="col-xl-6 col-lg-12 col-md-6 col-12 mb-4">
-                                              <!-- input -->
-                                              <div class="card card-body p-6">
-                                                 <div class="form-check mb-4">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="officeRadio" />
-                                                    <label class="form-check-label text-dark" for="officeRadio">Office</label>
-                                                 </div>
-                                                 <address>
-                                                    <strong>Nitu Chauhan</strong>
-                                                    <br />
-                                                    3853 Coal Road,
-                                                    <br />
-                                                    Tannersville, Pennsylvania, 18372, USA,
-                                                    <br />
-
-                                                    <abbr title="Phone">P: 402-776-1106</abbr>
-                                                 </address>
-                                              </div>
-                                           </div>
-                                        </div>
+                                       <!-- card -->
+                                       <div class="card card-bordered shadow-none mb-2">
+                                          <!-- card body -->
+                                          <div class="card-body p-6">
+                                             <div class="row g-2">
+                                                <div class="col-12">
+                                                   <!-- input -->
+                                                   <div class="mb-3">
+                                                      <label for="card-mask" class="form-label">받는분</label>
+                                                      <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                   </div>
+                                                </div>
+                                                <div class="col-12">
+                                                   <!-- input -->
+                                                   <div class="mb-3">
+                                                      <label for="card-mask" class="form-label">연락처</label>
+                                                      <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                   </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                   <!-- input -->
+                                                   <label class="form-label" for="nameoncard">주소</label>
+                                                   <div class="input-group mb-3 mb-lg-0">
+                                                      <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                                   </div>
+                                                </div>
+                                                <!-- input -->
+                                                <div class="">
+                                                  <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                </div>
+                                                <div class="mb-3">
+                                                  <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
                                      </div>
                                   </div>
                                </div>
                                <!-- accordion item -->
                                <div class="accordion-item py-4">
-                                  <a href="#" class="text-inherit h5" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                  <a href="#" class="text-inherit h5" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                                      <i class="feather-icon icon-shopping-bag me-2 text-muted"></i>
                                      Delivery instructions
                                      <!-- collapse -->
                                   </a>
-                                  <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                  <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                      <div class="mt-5">
                                         <label for="DeliveryInstructions" class="form-label sr-only">Delivery instructions</label>
                                         <textarea class="form-control" id="DeliveryInstructions" rows="3" placeholder="Write delivery instructions "></textarea>
@@ -153,147 +146,12 @@
                                               href="#"
                                               class="btn btn-outline-gray-400 text-muted"
                                               data-bs-toggle="collapse"
-                                              data-bs-target="#flush-collapseTwo"
+                                              data-bs-target="#flush-collapseOne"
                                               aria-expanded="false"
-                                              aria-controls="flush-collapseTwo">
+                                              aria-controls="flush-collapseOne">
                                               Prev
                                            </a>
-                                           <a href="#" class="btn btn-primary ms-2" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                              Next
-                                           </a>
-                                        </div>
-                                     </div>
-                                  </div>
-                               </div>
-                               <!-- accordion item -->
-                               <div class="accordion-item py-4">
-                                  <a href="#" class="text-inherit h5" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                     <i class="feather-icon icon-credit-card me-2 text-muted"></i>
-                                     Payment Method
-                                     <!-- collapse -->
-                                  </a>
-                                  <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                     <div class="mt-5">
-                                        <div>
-                                           <div class="card card-bordered shadow-none mb-2">
-                                              <!-- card body -->
-                                              <div class="card-body p-6">
-                                                 <div class="d-flex">
-                                                    <div class="form-check">
-                                                       <!-- checkbox -->
-                                                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="paypal" />
-                                                       <label class="form-check-label ms-2" for="paypal"></label>
-                                                    </div>
-                                                    <div>
-                                                       <!-- title -->
-                                                       <h5 class="mb-1 h6">Payment with Paypal</h5>
-                                                       <p class="mb-0 small">You will be redirected to PayPal website to complete your purchase securely.</p>
-                                                    </div>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                           <!-- card -->
-                                           <div class="card card-bordered shadow-none mb-2">
-                                              <!-- card body -->
-                                              <div class="card-body p-6">
-                                                 <div class="d-flex mb-4">
-                                                    <div class="form-check">
-                                                       <!-- input -->
-                                                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="creditdebitcard" />
-                                                       <label class="form-check-label ms-2" for="creditdebitcard"></label>
-                                                    </div>
-                                                    <div>
-                                                       <h5 class="mb-1 h6">Credit / Debit Card</h5>
-                                                       <p class="mb-0 small">Safe money transfer using your bank accou k account. We support Mastercard tercard, Visa, Discover and Stripe.</p>
-                                                    </div>
-                                                 </div>
-                                                 <div class="row g-2">
-                                                    <div class="col-12">
-                                                       <!-- input -->
-                                                       <div class="mb-3">
-                                                          <label for="card-mask" class="form-label">Card Number</label>
-                                                          <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
-                                                       </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-12">
-                                                       <!-- input -->
-                                                       <div class="mb-3 mb-lg-0">
-                                                          <label class="form-label" for="nameoncard">Name on card</label>
-                                                          <input type="text" class="form-control" placeholder="Enter name" id="nameoncard" />
-                                                       </div>
-                                                    </div>
-                                                    <div class="col-md-3 col-12">
-                                                       <!-- input -->
-                                                       <div class="mb-3 mb-lg-0 position-relative">
-                                                          <label class="form-label" for="expirydate">Expiry date</label>
-                                                          <input type="text" class="form-control" id="expirydate" placeholder="MM/YY" />
-                                                       </div>
-                                                    </div>
-                                                    <div class="col-md-3 col-12">
-                                                       <!-- input -->
-                                                       <div class="mb-3 mb-lg-0">
-                                                          <label for="digit-mask" class="form-label">
-                                                             CVV Code
-                                                             <i
-                                                                class="fe fe-help-circle ms-1"
-                                                                data-bs-toggle="tooltip"
-                                                                data-placement="top"
-                                                                title="A 3 - digit number, typically printed on the back of a card."></i>
-                                                          </label>
-                                                          <input type="password" class="form-control" name="digit-mask" id="digit-mask" placeholder="xxx" maxlength="3" inputmode="numeric" required />
-                                                       </div>
-                                                    </div>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                           <!-- card -->
-                                           <div class="card card-bordered shadow-none mb-2">
-                                              <!-- card body -->
-                                              <div class="card-body p-6">
-                                                 <!-- check input -->
-                                                 <div class="d-flex">
-                                                    <div class="form-check">
-                                                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="payoneer" />
-                                                       <label class="form-check-label ms-2" for="payoneer"></label>
-                                                    </div>
-                                                    <div>
-                                                       <!-- title -->
-                                                       <h5 class="mb-1 h6">Pay with Payoneer</h5>
-                                                       <p class="mb-0 small">You will be redirected to Payoneer website to complete your purchase securely.</p>
-                                                    </div>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                           <!-- card -->
-                                           <div class="card card-bordered shadow-none">
-                                              <div class="card-body p-6">
-                                                 <!-- check input -->
-                                                 <div class="d-flex">
-                                                    <div class="form-check">
-                                                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="cashonDelivery" />
-                                                       <label class="form-check-label ms-2" for="cashonDelivery"></label>
-                                                    </div>
-                                                    <div>
-                                                       <!-- title -->
-                                                       <h5 class="mb-1 h6">Cash on Delivery</h5>
-                                                       <p class="mb-0 small">Pay with cash when your order is delivered.</p>
-                                                    </div>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                           <!-- Button -->
-                                           <div class="mt-5 d-flex justify-content-end">
-                                              <a
-                                                 href="#"
-                                                 class="btn btn-outline-gray-400 text-muted"
-                                                 data-bs-toggle="collapse"
-                                                 data-bs-target="#flush-collapseThree"
-                                                 aria-expanded="false"
-                                                 aria-controls="flush-collapseThree">
-                                                 Prev
-                                              </a>
-                                              <a href="#" class="btn btn-primary ms-2">Place Order</a>
-                                           </div>
+                                           <a href="#" class="btn btn-primary ms-2">카카오페이로 결제하기</a>
                                         </div>
                                      </div>
                                   </div>
