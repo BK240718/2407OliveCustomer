@@ -98,14 +98,14 @@
                                                    <!-- input -->
                                                    <div class="mb-3">
                                                       <label for="card-mask" class="form-label">받는분</label>
-                                                      <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                      <input type="text" class="form-control" value="${customer.customerName}" required />
                                                    </div>
                                                 </div>
                                                 <div class="col-12">
                                                    <!-- input -->
                                                    <div class="mb-3">
                                                       <label for="card-mask" class="form-label">연락처</label>
-                                                      <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                      <input type="text" class="form-control" value="${customer.phoneNum}" required />
                                                    </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
@@ -118,10 +118,10 @@
                                                 </div>
                                                 <!-- input -->
                                                 <div class="">
-                                                  <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                  <input type="text" class="form-control" value="${customer.address1}" required />
                                                 </div>
                                                 <div class="mb-3">
-                                                  <input type="text" class="form-control" id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                                  <input type="text" class="form-control" value="${customer.address2}" required />
                                                 </div>
                                              </div>
                                           </div>

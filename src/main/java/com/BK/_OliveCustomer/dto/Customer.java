@@ -7,10 +7,10 @@ public class Customer {
 
     private Integer customerId;
     private String profileImg;
-    private String name;
+    private String customerName;
     private String password;
     private String email;
     private String phoneNum;
-    private String mainAddr;
-    private String dtlAddr;
+    private String address1;
+    private String address2;
 }

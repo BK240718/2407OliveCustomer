@@ -7,4 +7,6 @@ public interface CustomerDao {
     int totalCustomer();
 
     Customer oneCustomerForSignIn(Customer customerP);
+
+    Customer oneCustomerForInvoice(int customerId);
 }

@@ -7,4 +7,6 @@ public interface CustomerService {
     int totalCustomer();
 
     Customer oneCustomerForSignIn(Customer customerP);
+
+    Customer oneCustomerForInvoice(int customerId);
 }

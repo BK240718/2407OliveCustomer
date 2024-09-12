@@ -14,4 +14,10 @@
         Where   email       = #{email}
         And     password    = #{password}
     </select>
+
+    <select id="oneCustomerForInvoice" parameterType="int" resultType="customer">
+        SELECT CUSTOMERNAME, PHONENUM, ADDRESS1, ADDRESS2
+        FROM   CUSTOMER
+        WHERE  CUSTOMERID = #{customerId}
+    </select>
 </mapper>

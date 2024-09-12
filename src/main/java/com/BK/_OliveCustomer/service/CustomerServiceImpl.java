@@ -24,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService{
         return totalCustomerCnt;
     }
 
+
     @Override
     public Customer oneCustomerForSignIn(Customer customerP) {
 
@@ -31,6 +32,18 @@ public class CustomerServiceImpl implements CustomerService{
 
         Customer customer = new Customer();
         customer = customerDao.oneCustomerForSignIn(customerP);
+
+        return customer;
+    }
+
+
+    @Override
+    public Customer oneCustomerForInvoice(int customerId) {
+
+        log.info("oneCustomerForInvoice Start");
+
+        Customer customer = new Customer();
+        customer = customerDao.oneCustomerForInvoice(customerId);
 
         return customer;
     }

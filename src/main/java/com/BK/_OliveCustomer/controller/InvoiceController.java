@@ -23,6 +23,7 @@ public class InvoiceController {
 
     private final InvoiceService invoiceService;
     private final CartNCartItemService cartNCartItemService;
+    private final CustomerService customerService;
 
     @RequestMapping(value = "listInvoice")
     public String listInvoice(HttpSession session,
@@ -84,10 +85,17 @@ public class InvoiceController {
         // 세션에서 customerId를 가져와서 서비스 메서드 호출
         Map<String, Object> listCartByCustomerId = cartNCartItemService.listCartByCustomerId(customerId);
 
+        // select 받는분, 연락처, 주소
+        Customer customer = customerService.oneCustomerForInvoice(customerId);
+
+        log.info("customer.getCustomerName() = {}", customer.getCustomerName());
+        log.info("customer.getAddress1() = {}", customer.getAddress1());
+
         model.addAttribute("listCartByCustomerId", listCartByCustomerId.get("listCartByCustomerId"));
         model.addAttribute("subtotal", listCartByCustomerId.get("subtotal"));
         model.addAttribute("shippingCost", listCartByCustomerId.get("shippingCost"));
         model.addAttribute("grandTotal", listCartByCustomerId.get("grandTotal"));
+        model.addAttribute("customer", customer);
 
         return "invoice/insertInvoiceDtl";
     }
@@ -107,10 +115,17 @@ public class InvoiceController {
         // 세션에서 customerId를 가져와서 서비스 메서드 호출
         Map<String, Object> listCartByCustomerId = cartNCartItemService.listCartByCustomerId(customerId);
 
+        // select 받는분, 연락처, 주소
+        Customer customer = customerService.oneCustomerForInvoice(customerId);
+
+        log.info("customer.getCustomerName() = {}", customer.getCustomerName());
+        log.info("customer.getAddress1() = {}", customer.getAddress1());
+
         model.addAttribute("listCartByCustomerId", listCartByCustomerId.get("listCartByCustomerId"));
         model.addAttribute("subtotal", listCartByCustomerId.get("subtotal"));
         model.addAttribute("shippingCost", listCartByCustomerId.get("shippingCost"));
         model.addAttribute("grandTotal", listCartByCustomerId.get("grandTotal"));
+        model.addAttribute("customer", customer);
 
         return "invoice/insertInvoiceDtl2";
     }

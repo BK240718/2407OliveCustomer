@@ -45,4 +45,20 @@ public class CustomerDaoImpl implements CustomerDao {
 
         return customer;
     }
+
+
+    @Override
+    public Customer oneCustomerForInvoice(int customerId) {
+
+        log.info("oneCustomerForInvoice Start");
+        Customer customer = new Customer();
+
+        try {
+            customer = session.selectOne("oneCustomerForInvoice", customerId);
+        } catch (Exception e) {
+            log.info("e.getMessage() = {}", e.getMessage());
+        }
+
+        return customer;
+    }
 }
