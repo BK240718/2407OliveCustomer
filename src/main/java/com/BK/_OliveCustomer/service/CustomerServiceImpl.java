@@ -45,6 +45,8 @@ public class CustomerServiceImpl implements CustomerService{
         Customer customer = new Customer();
         customer = customerDao.oneCustomerForInvoice(customerId);
 
+        customer.splitPhoneNum();
+
         return customer;
     }
 }

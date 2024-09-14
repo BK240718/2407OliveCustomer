@@ -5,6 +5,7 @@ import lombok.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Invoice {
@@ -27,6 +28,7 @@ public class Invoice {
     private String colorName;   // itDTL.colorName
     private String colorImg;    // itDTL.colorImg
     private String itemName;    // it.itemName
+    private List<CartItem> listCart;    // 장바구니 목록
 
     // 계산된 필드 추가
     private int totalPriceForInvoiceDTL;

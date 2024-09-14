@@ -105,7 +105,17 @@
                                                    <!-- input -->
                                                    <div class="mb-3">
                                                       <label for="card-mask" class="form-label">연락처</label>
-                                                      <input type="text" class="form-control" value="${customer.phoneNum}" required />
+                                                      <div class="row">
+                                                          <div class="col-4">
+                                                              <input type="text" class="form-control" value="${customer.phonePart1}" required />
+                                                          </div>
+                                                          <div class="col-4">
+                                                              <input type="text" class="form-control" value="${customer.phonePart2}" required />
+                                                          </div>
+                                                          <div class="col-4">
+                                                              <input type="text" class="form-control" value="${customer.phonePart3}" required />
+                                                          </div>
+                                                      </div>
                                                    </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
@@ -151,7 +161,7 @@
                                               aria-controls="flush-collapseOne">
                                               Prev
                                            </a>
-                                           <a href="#" class="btn btn-primary ms-2">카카오페이로 결제하기</a>
+                                           <a href="#" id="kakaoPayButton" class="btn btn-primary ms-2">카카오페이로 결제하기</a>
                                         </div>
                                      </div>
                                   </div>
@@ -227,5 +237,30 @@
 
         <script src="../assets/libs/imask/dist/imask.min.js"></script>
         <script src="../assets/js/vendors/inputmask.js"></script>
+
+      <script>
+      document.getElementById('kakaoPayButton').addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+        fetch('/start-kakao-pay', {
+            method: 'POST',
+            header: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                // 필요한 데이터
+                customerId: '${customer.cutomerId}',
+                listCart: ${JSON.stringify(listCartByCustomerId)}
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // 카카오페이 결제 페이지로 리다이렉트
+            window.location.href = data.nextRedirectPcUrl;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+      });
+      </script>
    </body>
 </html>
