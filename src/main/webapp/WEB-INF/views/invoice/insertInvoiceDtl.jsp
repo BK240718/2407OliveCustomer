@@ -239,28 +239,40 @@
         <script src="../assets/js/vendors/inputmask.js"></script>
 
       <script>
-      document.getElementById('kakaoPayButton').addEventListener('click', function(event) {
-        event.preventDefault(); // 기본 링크 동작 방지
-        fetch('/start-kakao-pay', {
-            method: 'POST',
-            header: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                // 필요한 데이터
-                customerId: '${customer.cutomerId}',
-                listCart: ${JSON.stringify(listCartByCustomerId)}
+        var cartItems = [];
+
+        <c:forEach var="item" items="${listCartByCustomerId}">
+            cartItems.push({
+                item_name: "${item.itemName}",
+                quantity: ${item.totalQuantity}
+            });
+        </c:forEach>
+
+        console.log(cartItems);
+
+        document.getElementById('kakaoPayButton').addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 링크 동작 방지
+            fetch('/start-kakao-pay', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    customerId: '${customer.customerId}',
+                    listCart: cartItems
+                })
             })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // 카카오페이 결제 페이지로 리다이렉트
-            window.location.href = data.nextRedirectPcUrl;
-        })
-        .catch(error => {
-            console.error('Error:', error);
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response from Kakao Pay API: ", data);
+                window.location.href = data.nextRedirectPcUrl;  // 카카오페이 결제 페이지로 리다이렉트
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error occurred while processing the payment: ' + error.message);
+            });
         });
-      });
+
       </script>
    </body>
 </html>

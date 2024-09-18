@@ -112,47 +112,21 @@ public class InvoiceController {
         return "invoice/insertInvoiceDtl";
     }
 
-    @RequestMapping(value = "insertInvoiceDtl2")
-    public String insertInvoiceDtl2(HttpSession session, Model model) {
 
-        log.info("insertInvoiceDtl2 Start");
-
-        Integer customerId = (Integer) session.getAttribute("customerId");
-
-        if (customerId == null) {
-            // 세션에 customerId가 없으면 로그인 페이지로 리다이렉트
-            return "redirect:/login";
-        }
-
-        // 세션에서 customerId를 가져와서 서비스 메서드 호출
-        Map<String, Object> listCartByCustomerId = cartNCartItemService.listCartByCustomerId(customerId);
-
-        // select 받는분, 연락처, 주소
-        Customer customer = customerService.oneCustomerForInvoice(customerId);
-
-        log.info("customer.getCustomerName() = {}", customer.getCustomerName());
-        log.info("customer.getAddress1() = {}", customer.getAddress1());
-
-        model.addAttribute("listCartByCustomerId", listCartByCustomerId.get("listCartByCustomerId"));
-        model.addAttribute("subtotal", listCartByCustomerId.get("subtotal"));
-        model.addAttribute("shippingCost", listCartByCustomerId.get("shippingCost"));
-        model.addAttribute("grandTotal", listCartByCustomerId.get("grandTotal"));
-        model.addAttribute("customer", customer);
-
-        return "invoice/insertInvoiceDtl2";
-    }
 
 
     @PostMapping("/start-kakao-pay")
     public ResponseEntity<Map<String, Object>> startKakaoPay(@RequestBody Invoice request) {
 
         log.info("startKakaoPay Start");
+        log.info("CustomerId(): {}", request.getCustomerId());
+        log.info("request data: {}", request);
 
         // 카카오페이 결제 API 요청 준비
         String url = "https://kapi.kakao.com/v1/payment/ready";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.set("Authorization", "KakaoAK" + KAKAO_REST_API_KEY);
+        headers.set("Authorization", "KakaoAK " + KAKAO_REST_API_KEY);  // 공백 추가 "KakaoAK "
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("cid", "TC0ONETIME");
@@ -162,9 +136,9 @@ public class InvoiceController {
         body.add("quantity", "1");          // 상품 수량
         body.add("total_amount", "1");
         body.add("tax_free_amount", "0");   // 비과세 금액
-        body.add("approval_url", "http://example.com/approval");
-        body.add("fail_url", "http://example.com/fail");
-        body.add("cancel_url", "http://example.com/cancel");
+        body.add("approval_url", "http://localhost:8187/insertInvoiceDtl");
+        body.add("fail_url", "http://localhost:8187/insertInvoiceDtl");
+        body.add("cancel_url", "http://localhost:8187/insertInvoiceDtl");
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
