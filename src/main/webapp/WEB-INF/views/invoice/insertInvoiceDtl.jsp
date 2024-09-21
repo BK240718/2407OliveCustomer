@@ -239,12 +239,13 @@
         <script src="../assets/js/vendors/inputmask.js"></script>
 
       <script>
+        console.log("Customer ID: ${sessionScope.customerId}");
         var cartItems = [];
 
         <c:forEach var="item" items="${listCartByCustomerId}">
             cartItems.push({
                 item_name: "${item.itemName}",
-                quantity: ${item.totalQuantity}
+                quantity: ${item.totalQuantity},
             });
         </c:forEach>
 
@@ -252,27 +253,26 @@
 
         document.getElementById('kakaoPayButton').addEventListener('click', function(event) {
             event.preventDefault(); // 기본 링크 동작 방지
-            fetch('/start-kakao-pay', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    customerId: '${customer.customerId}',
+
+            // Ajax 요청
+            $.ajax({
+                type: 'POST',
+                url: '/start-kakao-pay',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    customerId: '${sessionScope.customerId}',
                     listCart: cartItems
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Response from Kakao Pay API: ", data);
-                window.location.href = data.nextRedirectPcUrl;  // 카카오페이 결제 페이지로 리다이렉트
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error occurred while processing the payment: ' + error.message);
+                }),
+                success: function(response) {
+                    console.log("Response from Kakao Pay API: ", response);
+                    window.location.href = response.next_redirect_pc_url; // 카카오페이 결제 페이지로 리다이렉트
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    alert('Error occurred while processing the payment: ' + error.message);
+                }
             });
         });
-
-      </script>
+    </script>
    </body>
 </html>
