@@ -4,6 +4,7 @@ import com.BK._OliveCustomer.dao.InvoiceDao;
 import com.BK._OliveCustomer.dto.ApproveResponse;
 import com.BK._OliveCustomer.dto.Invoice;
 import com.BK._OliveCustomer.dto.ReadyResponse;
+import com.BK._OliveCustomer.utils.SessionUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -123,24 +124,36 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public ApproveResponse payApprove(String tid, String pgToken) {
 
+        // 세션에서 customerId 가져오기
+        String customerId = SessionUtils.getStringAttributeValue("customerId");
+        if (customerId == null) {
+            customerId = "default_user_id";     // 기본값 설정
+        }
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                // 가맹점 코드(테스트용)
         parameters.put("tid", tid);                         // 결제 고유번호
         parameters.put("partner_order_id", "1234567890");   // 주문번호
-        parameters.put("partner_user_id", "roommake");// !!! 회원 아이디 수정 필요!!!!
+        parameters.put("partner_user_id", customerId);      // 세션에서 가져온 회원 아이디
         parameters.put("pg_token", pgToken);                // 결제승인 요청을 인증하는 토큰
 
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
-        return null;
+        RestTemplate template = new RestTemplate();
+        String url = "https://open-api.kakaopay.com/online/v1/payment/approve";
+        ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
+        log.info("결제 승인 응답 객체: " + approveResponse);
+
+        return approveResponse;
     }
 
     // 카카오페이 측에 요청 시 헤더부에 필요한 값
     private HttpHeaders getHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "KakaoAK " + KAKAO_SECRETKEY);  // 공백 추가 "KakaoAK "
+        headers.set("Authorization", "SECRET_KEY " + KAKAO_SECRETKEY.trim());  // 공백 추가 "KakaoAK "
         headers.set("Content-Type", "application/json");
 
-        log.info("Authorization Header: KakaoAK {}", KAKAO_SECRETKEY);
+        log.info("Authorization Header: SECRET_KEY {}", KAKAO_SECRETKEY.trim());
 
         return headers;
     }

@@ -1,5 +1,6 @@
 package com.BK._OliveCustomer.controller;
 
+import com.BK._OliveCustomer.dto.ApproveResponse;
 import com.BK._OliveCustomer.dto.Customer;
 import com.BK._OliveCustomer.dto.Invoice;
 import com.BK._OliveCustomer.dto.ReadyResponse;
@@ -114,7 +115,7 @@ public class InvoiceController {
 
 
     @PostMapping("/start-kakao-pay")
-    public ReadyResponse startKakaoPay(@RequestBody Invoice request) {
+    public ResponseEntity<ReadyResponse> startKakaoPay(@RequestBody Invoice request) {
 
         log.info("startKakaoPay Start");
         log.info("CustomerId(): {}", request.getCustomerId());
@@ -128,7 +129,7 @@ public class InvoiceController {
         log.info("결제 고유 번호 readyResponse.getTid() = {}", readyResponse.getTid());
         
         // readyResponse 객체 반환
-        return readyResponse;
+        return ResponseEntity.ok(readyResponse);
     }
 
     @GetMapping("completed-kakao-pay")
@@ -141,9 +142,9 @@ public class InvoiceController {
         log.info("결제 고유 번호 tid: " + tid);
 
         // 카카오 결제 요청하기
+        ApproveResponse approveResponse = invoiceService.payApprove(tid, pgToken);
 
-
-        return null;
+        return "redirect:/completed-kakao-pay";
     }
 
 

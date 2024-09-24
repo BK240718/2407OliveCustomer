@@ -265,7 +265,7 @@
                 }),
                 success: function(response) {
                     console.log("Response from Kakao Pay API: ", response);
-                    window.location.href = response.next_redirect_pc_url; // 카카오페이 결제 페이지로 리다이렉트
+                    window.open(response.next_redirect_pc_url, 'KakaoPay', 'width=500, height=500'); // 카카오페이 결제 페이지로 리다이렉트
                 },
                 error: function(error) {
                     console.error('Error:', error);
