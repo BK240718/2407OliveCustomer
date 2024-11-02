@@ -2,6 +2,7 @@ package com.BK._OliveCustomer.dto;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Invoice {
     private int invoiceId;
     private Integer customerId;
-    private String orderDate;
+    private Timestamp orderDate;
     private int totalPrice;
     private int status;
     private String request;

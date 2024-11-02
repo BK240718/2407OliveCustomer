@@ -1,10 +1,10 @@
 package com.BK._OliveCustomer.service;
 
 import com.BK._OliveCustomer.dao.InvoiceDao;
-import com.BK._OliveCustomer.dto.ApproveResponse;
-import com.BK._OliveCustomer.dto.Invoice;
-import com.BK._OliveCustomer.dto.ReadyResponse;
+import com.BK._OliveCustomer.dto.*;
 import com.BK._OliveCustomer.utils.SessionUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +28,7 @@ import java.util.Map;
 public class InvoiceServiceImpl implements InvoiceService {
 
     private final InvoiceDao invoiceDao;
+    private final CartNCartItemService cartNCartItemService;
 
     // application-aws.yml에서 가져옴
     @Value("${kakao.secretkey}")
@@ -85,14 +89,29 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         log.info("prepareKakaoPayRequest Start");
 
+        // customerId 로 장바구니 리스트 가져오기
+        Map<String, Object> cartData = cartNCartItemService.listCartByCustomerId(request.getCustomerId());
+
+        // cartData에서 'listCartByCustomerId' 키로 리스트 가져오기
+        List<CartItem> cartItems = (List<CartItem>) cartData.get("listCartByCustomerId");
+
+        // 첫번째 cartId 가져오기
+        String firstCartId = String.valueOf(cartItems.get(0).getCartId());
+
+        // 상품명 리스트: 첫번째 colorName 가져오기
+        String firstColorName = String.valueOf(cartItems.get(0).getColorName());
+
+        // 첫번째 totalQuantity 가져오기
+        int firstTotalQuantity = cartItems.get(0).getTotalQuantity();
+
         // 요청 Body 설정 - HashMap 형식으로 작성
         Map<String, Object> body = new HashMap<>();
         body.put("cid", KAKAO_CID);                                                 // 가맹점 코드(테스트용)
-        body.put("partner_order_id", "1234567890");                                 // 주문번호
+        body.put("partner_order_id", firstCartId);                                 // 주문번호: 첫번째 cartId를 String 타입으로 변환하여 주문번호로 사용
         body.put("partner_user_id", request.getCustomerId() != null ? String.valueOf(request.getCustomerId()) : "default_user_id");     // 회원 아이디
-        body.put("item_name", "상품명");       // 여러 상품 있을 경우 처리 필요
-        body.put("quantity", "1");          // 상품 수량
-        body.put("total_amount", "1");
+        body.put("item_name", firstColorName);       // 여러 상품 있을 경우 처리 필요
+        body.put("quantity", String.valueOf(firstTotalQuantity));          // 상품 수량
+        body.put("total_amount", request.getTotalPrice());      // 상품 총액
         body.put("tax_free_amount", "0");   // 비과세 금액
         body.put("approval_url", "http://localhost:8187/completed-kakao-pay");      // 결제 성공 시 URL
         body.put("fail_url", "http://localhost:8187/insertInvoiceDtl");             // 결제 취소 시 URL
@@ -122,19 +141,37 @@ public class InvoiceServiceImpl implements InvoiceService {
     // 사용자가 결제 수단 선택 후 비밀번호를 입력해 결제 인증 완료한 뒤,
     // 최종적으로 결제 완료 처리하는 단계
     @Override
-    public ApproveResponse payApprove(String tid, String pgToken) {
+    public ApproveResponse payApprove(String tid, String pgToken, int totalPrice, HttpServletRequest request) {
+
+        log.info("payApprove Start");
+        log.info("결제승인 요청을 인증하는 토큰 pgToken: " + pgToken);
 
         // 세션에서 customerId 가져오기
-        String customerId = SessionUtils.getStringAttributeValue("customerId");
-        if (customerId == null) {
-            customerId = "default_user_id";     // 기본값 설정
+        String customerIdStr = SessionUtils.getStringAttributeValue("customerId");
+        if (customerIdStr == null) {
+            customerIdStr = "default_user_id";     // 기본값 설정
         }
+
+        // customerId를 Integer로 변환
+        Integer customerId = Integer.parseInt(customerIdStr);
+
+        // customerId로 장바구니 리스트 가져오기
+        Map<String, Object> cartData = cartNCartItemService.listCartByCustomerId(customerId);
+
+        // cartData 에서 'listCartByCustomerId' 키로 리스트 가져오기
+        List<CartItem> cartItems = (List<CartItem>) cartData.get("listCartByCustomerId");
+
+        // 첫번째 cartId 가져오기
+        String firstCartId = String.valueOf(cartItems.get(0).getCartId());
+
+        // totalPrice 값 가져오기
+        int totalPrice1 = totalPrice;
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                // 가맹점 코드(테스트용)
         parameters.put("tid", tid);                         // 결제 고유번호
-        parameters.put("partner_order_id", "1234567890");   // 주문번호
-        parameters.put("partner_user_id", customerId);      // 세션에서 가져온 회원 아이디
+        parameters.put("partner_order_id", firstCartId);   // 주문번호
+        parameters.put("partner_user_id", customerId.toString());      // 세션에서 가져온 회원 아이디
         parameters.put("pg_token", pgToken);                // 결제승인 요청을 인증하는 토큰
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -144,7 +181,29 @@ public class InvoiceServiceImpl implements InvoiceService {
         ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
         log.info("결제 승인 응답 객체: " + approveResponse);
 
+        // 승인 성공 시 DB에 주문 정보 저장
+        if (approveResponse != null) {
+            Invoice invoice = new Invoice();
+            invoice.setCustomerId(customerId);
+            invoice.setTotalPrice(totalPrice);
+            invoice.setOrderDate(new Timestamp(System.currentTimeMillis()));
+            invoice.setStatus(0);
+            invoice.setRequest(request.getParameter("request"));
+
+            insertInvoice(invoice);
+        }
+
         return approveResponse;
+    }
+
+    @Transactional
+    @Override
+    public void insertInvoice(Invoice invoice) {
+
+        log.info("insertInvoice Start");
+
+
+
     }
 
     // 카카오페이 측에 요청 시 헤더부에 필요한 값
@@ -168,4 +227,6 @@ public class InvoiceServiceImpl implements InvoiceService {
             return 2500;
         }
     }
+
+
 }

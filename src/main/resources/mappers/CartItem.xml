@@ -16,6 +16,7 @@
 
     <select id="listCartByCustomerId" parameterType="map" resultType="cartItem">
         SELECT
+            c.CARTID AS cartId,
             i.COLORIMG AS COLORIMG,
             i.COLORNAME AS colorName,
             i.SALESPRICE AS SALESPRICE,
@@ -35,6 +36,7 @@
             AND c.CUSTOMERID = #{customerId}
             AND ci.STATUS = #{status}
         GROUP BY
+            c.CARTID,
             i.COLORIMG,
             i.COLORNAME,
             i.SALESPRICE,

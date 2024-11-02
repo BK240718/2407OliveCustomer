@@ -8,6 +8,7 @@ import com.BK._OliveCustomer.service.CartNCartItemService;
 import com.BK._OliveCustomer.service.CustomerService;
 import com.BK._OliveCustomer.service.InvoiceService;
 import com.BK._OliveCustomer.utils.SessionUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -112,17 +113,17 @@ public class InvoiceController {
     }
 
 
-
-
     @PostMapping("/start-kakao-pay")
-    public ResponseEntity<ReadyResponse> startKakaoPay(@RequestBody Invoice request) {
+    public ResponseEntity<ReadyResponse> startKakaoPay(@RequestBody Invoice requestP) {
 
         log.info("startKakaoPay Start");
-        log.info("CustomerId(): {}", request.getCustomerId());
-        log.info("request data: {}", request);
+        log.info("CustomerId(): {}", requestP.getCustomerId());
+        log.info("TotalPrice(): {}", requestP.getTotalPrice());
+        log.info("요청사항: {}", requestP.getRequest());
+        log.info("requestP data: {}", requestP);
 
         // 카카오페이 결제 준비하기
-        ReadyResponse readyResponse =  invoiceService.prepareKakaoPayRequest(request);
+        ReadyResponse readyResponse =  invoiceService.prepareKakaoPayRequest(requestP);
 
         // 세션에 결제 고유번호(tid) 저장
         SessionUtils.addAttribute("tid", readyResponse.getTid());
@@ -133,19 +134,31 @@ public class InvoiceController {
     }
 
     @GetMapping("completed-kakao-pay")
-    public String completedKakaoPay(@RequestParam("pg_token") String pgToken) {
+    public String completedKakaoPay(@RequestParam("pg_token") String pgToken,
+                                    @RequestParam("totalPrice") int totalPrice,
+                                    HttpServletRequest request,
+                                    Model model) {
 
         log.info("completedKakaoPay Start");
 
         String tid = SessionUtils.getStringAttributeValue("tid");
         log.info("결제승인 요청을 인증하는 토큰 pgToken: " + pgToken);
         log.info("결제 고유 번호 tid: " + tid);
+        log.info("총 가격 totalPrice: " + totalPrice);
 
         // 카카오 결제 요청하기
-        ApproveResponse approveResponse = invoiceService.payApprove(tid, pgToken);
+        ApproveResponse approveResponse = invoiceService.payApprove(tid, pgToken, totalPrice, request);
 
-        return "redirect:/completed-kakao-pay";
+        // 결제 승인 응답 객체를 모델에 추가 (JSP에서 접근할 수 있도록)
+        model.addAttribute("approveResponse", approveResponse);
+
+        // 'pgToken'도 모델에 추가
+        model.addAttribute("pgToken", pgToken);
+
+        return "invoice/completed-kakao-pay";
     }
+
+
 
 
 }

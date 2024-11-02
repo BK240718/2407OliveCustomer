@@ -213,6 +213,7 @@
                                             <div class="d-flex align-items-center justify-content-between fw-bold">
                                                <div>Grand Total</div>
                                                <div><fmt:formatNumber type="currency" currencySymbol="₩" value="${grandTotal}"/></div>
+                                               <c:set var="grandTotalValue" value="${grandTotal}" />
                                             </div>
                                          </li>
                                   </ul>
@@ -239,6 +240,10 @@
         <script src="../assets/js/vendors/inputmask.js"></script>
 
       <script>
+
+        var grandTotal = ${grandTotalValue};
+        console.log("grandTotal: " + grandTotal);
+
         console.log("Customer ID: ${sessionScope.customerId}");
         var cartItems = [];
 
@@ -254,6 +259,8 @@
         document.getElementById('kakaoPayButton').addEventListener('click', function(event) {
             event.preventDefault(); // 기본 링크 동작 방지
 
+            var deliveryInstructions = document.getElementById('DeliveryInstructions').value;
+
             // Ajax 요청
             $.ajax({
                 type: 'POST',
@@ -261,11 +268,41 @@
                 contentType: 'application/json',
                 data: JSON.stringify({
                     customerId: '${sessionScope.customerId}',
-                    listCart: cartItems
+                    listCart: cartItems,
+                    totalPrice: grandTotal
+                    request: deliveryInstructions
                 }),
                 success: function(response) {
-                    console.log("Response from Kakao Pay API: ", response);
-                    window.open(response.next_redirect_pc_url, 'KakaoPay', 'width=500, height=500'); // 카카오페이 결제 페이지로 리다이렉트
+                    var paymentWindow = window.open(response.next_redirect_pc_url, 'KakaoPay', 'width=500, height=500');
+
+                    // 팝업창에서 결제 완료 후 처리
+                    window.addEventListener("message", function(event) {
+                        if (event.origin === "http://localhost:8187") { // 출처 확인
+                            var pgToken = event.data.pgToken;
+                            if (pgToken) {
+                                // 결제 완료 API 호출
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/completed-kakao-pay',
+                                    data: { pg_token: pgToken,
+                                            totalPrice: grandTotal
+                                     },
+                                    success: function() {
+                                        // 부모창 URL 변경
+                                        window.location.href = "/oneInvoiceAfterPayment";
+                                        // 팝업창 닫기
+                                        if (paymentWindow) {
+                                            paymentWindow.close();
+                                        }
+                                    },
+                                    error: function(error) {
+                                        console.error('Error:', error);
+                                        alert('Error occurred while completing the payment: ' + error.message);
+                                    }
+                                });
+                            }
+                        }
+                    });
                 },
                 error: function(error) {
                     console.error('Error:', error);
@@ -273,6 +310,7 @@
                 }
             });
         });
+
     </script>
    </body>
 </html>
