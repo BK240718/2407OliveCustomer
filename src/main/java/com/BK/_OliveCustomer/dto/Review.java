@@ -3,7 +3,7 @@ package com.BK._OliveCustomer.dto;
 import lombok.Data;
 
 @Data
-public class Review {
+public class    Review {
     private int reviewId;
     private int rating;
     private String content;

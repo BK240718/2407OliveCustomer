@@ -30,6 +30,17 @@ public class ItemDTLServiceImpl implements ItemDTLService {
         return listItemDTLBySection;
     }
 
+    @Override
+    public List<ItemDTL> allItemDTL() {
+
+        log.info("allItemDTL Start");
+
+        List<ItemDTL> allItemDTL = itemDTLDao.allItemDTL();
+        log.info("allItemDTL.size() = {}", allItemDTL.size());
+
+        return allItemDTL;
+    }
+
 
     @Override
     public int countItemDTLBySection(int sectionId) {

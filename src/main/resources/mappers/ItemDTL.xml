@@ -34,6 +34,12 @@
         Where   rn Between #{start} AND #{end}
     </select>
 
+    <select id="allItemDTL" resultType="itemDTL">
+        SELECT  iDTL.*, i.itemname
+        FROM    itemdtl iDTL, item i
+        WHERE   iDTL.itemId = i.itemid
+    </select>
+
     <select id="countItemDTLBySection" parameterType="int" resultType="int">
         Select  COUNT(*)
         From    itemDTL itDTL, item i, section s
@@ -49,6 +55,8 @@
         WHERE   itemDtlId = #{itemDtlId}
         AND     iDTL.itemId = i.itemId
     </select>
+
+
 
     <select id="listItemDTLByItemId" parameterType="itemDTL" resultType="itemDTL">
         SELECT  iDTL.*, i.itemName

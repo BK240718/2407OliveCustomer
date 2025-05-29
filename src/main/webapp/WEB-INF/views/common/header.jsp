@@ -81,11 +81,11 @@
                <div class="row w-100 align-items-center gx-lg-2 gx-0">
                   <div class="col-xxl-2 col-lg-3 col-md-6 col-5">
                      <a class="navbar-brand d-none d-lg-block" href="./index.html">
-                        <img src="./assets/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" />
+                        <img src="./assets/images/logo/Nutti3.PNG" width="110" height="31" alt="eCommerce HTML Template" />
                      </a>
                      <div class="d-flex justify-content-between w-100 d-lg-none">
                         <a class="navbar-brand" href="./index.html">
-                           <img src="./assets/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" />
+                           <img src="./assets/images/logo/Nutti3.PNG" width="110" height="31" alt="eCommerce HTML Template" />
                         </a>
                      </div>
                   </div>
@@ -133,10 +133,7 @@
                                  class="feather feather-heart">
                                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                               </svg>
-                              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                                 5
-                                 <span class="visually-hidden">unread messages</span>
-                              </span>
+
                            </a>
                         </div>
                         <div class="list-inline-item me-5">
@@ -174,10 +171,7 @@
                                  <line x1="3" y1="6" x2="21" y2="6"></line>
                                  <path d="M16 10a4 4 0 0 1-8 0"></path>
                               </svg>
-                              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                                 1
-                                 <span class="visually-hidden">unread messages</span>
-                              </span>
+
                            </a>
                         </div>
                         <div class="list-inline-item d-inline-block d-lg-none">
@@ -205,7 +199,7 @@
             <div class="container">
                <div class="offcanvas offcanvas-start" tabindex="-1" id="navbar-default" aria-labelledby="navbar-defaultLabel">
                   <div class="offcanvas-header pb-1">
-                     <a href="./index.html"><img src="./assets/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" /></a>
+                     <a href="./index.html"><img src="./assets/images/logo/Nutti3.PNG" width="110" height="31"  alt="eCommerce HTML Template" /></a>
                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                   </div>
                   <div class="offcanvas-body">

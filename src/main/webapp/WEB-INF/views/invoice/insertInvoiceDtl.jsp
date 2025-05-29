@@ -128,10 +128,10 @@
                                                 </div>
                                                 <!-- input -->
                                                 <div class="">
-                                                  <input type="text" class="form-control" value="${customer.address1}" required />
+                                                  <input type="text" class="form-control" id="address1" value="${customer.address1}" required />
                                                 </div>
                                                 <div class="mb-3">
-                                                  <input type="text" class="form-control" value="${customer.address2}" required />
+                                                  <input type="text" class="form-control" id="address2" value="${customer.address2}" required />
                                                 </div>
                                              </div>
                                           </div>
@@ -250,7 +250,9 @@
         <c:forEach var="item" items="${listCartByCustomerId}">
             cartItems.push({
                 item_name: "${item.itemName}",
-                quantity: ${item.totalQuantity},
+                itemDtlId: ${item.itemDtlId},
+                totalQuantity: ${item.totalQuantity},
+                totalPrice: ${item.totalPrice},
             });
         </c:forEach>
 
@@ -260,6 +262,10 @@
             event.preventDefault(); // 기본 링크 동작 방지
 
             var deliveryInstructions = document.getElementById('DeliveryInstructions').value;
+            var address1 = document.getElementById('address1').value;
+            var address2 = document.getElementById('address2').value;
+            console.log(address1);
+            console.log(address2);
 
             // Ajax 요청
             $.ajax({
@@ -269,10 +275,12 @@
                 data: JSON.stringify({
                     customerId: '${sessionScope.customerId}',
                     listCart: cartItems,
-                    totalPrice: grandTotal
-                    request: deliveryInstructions
+                    totalPrice: grandTotal,
+                    request: deliveryInstructions,
+                    address1: address1,
+                    address2: address2
                 }),
-                success: function(response) {
+                 success: function(response) {
                     var paymentWindow = window.open(response.next_redirect_pc_url, 'KakaoPay', 'width=500, height=500');
 
                     // 팝업창에서 결제 완료 후 처리
@@ -285,8 +293,9 @@
                                     type: 'GET',
                                     url: '/completed-kakao-pay',
                                     data: { pg_token: pgToken,
-                                            totalPrice: grandTotal
-                                     },
+                                          totalPrice: grandTotal,
+
+                                   },
                                     success: function() {
                                         // 부모창 URL 변경
                                         window.location.href = "/oneInvoiceAfterPayment";

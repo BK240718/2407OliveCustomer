@@ -1,8 +1,10 @@
 package com.BK._OliveCustomer.controller;
 
 import com.BK._OliveCustomer.dto.Customer;
+import com.BK._OliveCustomer.dto.ItemDTL;
 import com.BK._OliveCustomer.dto.Section;
 import com.BK._OliveCustomer.service.CustomerService;
+import com.BK._OliveCustomer.service.ItemDTLService;
 import com.BK._OliveCustomer.service.SectionService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,11 +29,21 @@ public class MainController {
 
     private final SectionService sectionService;
     private final CustomerService customerService;
+    private final ItemDTLService itemDTLService;
 
     @GetMapping(value = "/")
-    public String home() {
+    public String home(Model model) {
+
+        List<ItemDTL> allItemDTL = itemDTLService.allItemDTL();
+        log.info("allItemDTL.size() = {}", allItemDTL.size());
+
+        model.addAttribute("allItemDTL", allItemDTL);
+
         return "main";
     }
+
+
+
 
 
     @GetMapping(value = "login")
@@ -160,8 +172,6 @@ public class MainController {
         return response;
 
     }
-
-
 
 
 }

@@ -1,9 +1,6 @@
 package com.BK._OliveCustomer.controller;
 
-import com.BK._OliveCustomer.dto.ApproveResponse;
-import com.BK._OliveCustomer.dto.Customer;
-import com.BK._OliveCustomer.dto.Invoice;
-import com.BK._OliveCustomer.dto.ReadyResponse;
+import com.BK._OliveCustomer.dto.*;
 import com.BK._OliveCustomer.service.CartNCartItemService;
 import com.BK._OliveCustomer.service.CustomerService;
 import com.BK._OliveCustomer.service.InvoiceService;
@@ -114,13 +111,26 @@ public class InvoiceController {
 
 
     @PostMapping("/start-kakao-pay")
-    public ResponseEntity<ReadyResponse> startKakaoPay(@RequestBody Invoice requestP) {
+    public ResponseEntity<ReadyResponse> startKakaoPay(@RequestBody Invoice requestP,
+                                                       HttpSession session
+                                                       ) {
 
         log.info("startKakaoPay Start");
         log.info("CustomerId(): {}", requestP.getCustomerId());
         log.info("TotalPrice(): {}", requestP.getTotalPrice());
         log.info("요청사항: {}", requestP.getRequest());
         log.info("requestP data: {}", requestP);
+        log.info("주소1: {}", requestP.getAddress1());
+        log.info("주소2: {}", requestP.getAddress2());
+
+        // CartItems 로그 출력 (디버깅 용도)
+        if (requestP.getListCart() != null) {
+            for(CartItem item : requestP.getListCart()) {
+                log.info("ItemDtlId: {} getTotalQuantity: {} getTotalPrice: {}", item.getItemDtlId(), item.getTotalQuantity(), item.getTotalPrice());
+            }
+        }
+
+        session.setAttribute("cartItems", requestP.getListCart());
 
         // 카카오페이 결제 준비하기
         ReadyResponse readyResponse =  invoiceService.prepareKakaoPayRequest(requestP);
@@ -128,26 +138,57 @@ public class InvoiceController {
         // 세션에 결제 고유번호(tid) 저장
         SessionUtils.addAttribute("tid", readyResponse.getTid());
         log.info("결제 고유 번호 readyResponse.getTid() = {}", readyResponse.getTid());
+
+
+        session.setAttribute("address1", requestP.getAddress1());
+        session.setAttribute("address2", requestP.getAddress2());
+        session.setAttribute("partner_order_id", readyResponse.getPartner_order_id());
+
+
         
         // readyResponse 객체 반환
         return ResponseEntity.ok(readyResponse);
     }
 
-    @GetMapping("completed-kakao-pay")
+    @GetMapping(value = "completed-kakao-pay")
     public String completedKakaoPay(@RequestParam("pg_token") String pgToken,
-                                    @RequestParam("totalPrice") int totalPrice,
+                                    @ModelAttribute Invoice invoice,
                                     HttpServletRequest request,
+                                    HttpSession session,
                                     Model model) {
 
         log.info("completedKakaoPay Start");
 
         String tid = SessionUtils.getStringAttributeValue("tid");
-        log.info("결제승인 요청을 인증하는 토큰 pgToken: " + pgToken);
         log.info("결제 고유 번호 tid: " + tid);
-        log.info("총 가격 totalPrice: " + totalPrice);
+
+        log.info("결제승인 요청을 인증하는 토큰 pgToken: " + pgToken);
+        log.info("총 가격 totalPrice: " + invoice.getTotalPrice());
+
+        String address1 = (String) session.getAttribute("address1");
+        String address2 = (String) session.getAttribute("address2");
+
+        log.info("주소1 address1: " + address1);
+        log.info("주소2 address2: " + address2);
+
+        // 세션 데이터가 없다면 에러 처리
+        if (address1 == null || address2 == null) {
+            throw new IllegalStateException("주소 정보가 없습니다.");
+        }
+
+        // 세션에서 CartItems 가져오기
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+        if (cartItems != null) {
+            for (CartItem item : cartItems) {
+                log.info("세션에서 가져온 CartItem: Item: {}, Quantity: {}, TotalPrice: {}",
+                        item.getItemDtlId(), item.getTotalQuantity(), item.getTotalPrice());
+            }
+        } else {
+            log.error("세션에 CartItems가 없습니다");
+        }
 
         // 카카오 결제 요청하기
-        ApproveResponse approveResponse = invoiceService.payApprove(tid, pgToken, totalPrice, request);
+        ApproveResponse approveResponse = invoiceService.payApprove(tid, pgToken, invoice, request , cartItems);
 
         // 결제 승인 응답 객체를 모델에 추가 (JSP에서 접근할 수 있도록)
         model.addAttribute("approveResponse", approveResponse);

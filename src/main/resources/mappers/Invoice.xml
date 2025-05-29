@@ -26,4 +26,42 @@
         AND     itDTL.itemId        = it.itemId
         AND     inv.invoiceId       = #{invoiceId}
     </select>
+
+    <select id="insertInvoice" parameterType="map" statementType="CALLABLE">
+        {
+            call INSERT_INVOICE(
+                #{P_CUSTOMERID, mode=IN, jdbcType=NUMERIC},
+                #{P_TOTALPRICE, mode=IN, jdbcType=NUMERIC},
+                #{P_STATUS, mode=IN, jdbcType=NUMERIC},
+                #{P_REQUEST, mode=IN, jdbcType=VARCHAR},
+                #{P_ADDRESS1, mode=IN, jdbcType=VARCHAR},
+                #{P_ADDRESS2, mode=IN, jdbcType=VARCHAR},
+                #{P_RECEIVER, mode=IN, jdbcType=VARCHAR},
+                #{P_PHONENUM, mode=IN, jdbcType=VARCHAR},
+                #{P_INVOICEID, mode=OUT, jdbcType=NUMERIC}
+            )
+        }
+    </select>
+
+    <insert id="insertInvoiceDTL" parameterType="map">
+        insert into invoicedtl (
+            INVOICEDTLID,
+            ITEMDTLID,
+            INVOICEID,
+            INVOICEDTLQTY,
+            PRICE,
+            STATUS,
+            TRACKNUM,
+            DELDATE
+        )values (
+            INVOICEDTLID_SEQ.nextval,
+            #{P_ITEMDTLID},
+            #{P_INVOICEID},
+            #{P_QUANTITY},
+            #{P_TOTALPRICE},
+            #{P_STATUS},
+            #{P_TRACKNUM},
+            SYSDATE
+        )
+    </insert>
 </mapper>

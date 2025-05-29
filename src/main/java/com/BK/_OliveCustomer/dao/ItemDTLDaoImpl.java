@@ -31,6 +31,22 @@ public class ItemDTLDaoImpl implements ItemDTLDao {
         return listItemDTLBySection;
     }
 
+    @Override
+    public List<ItemDTL> allItemDTL() {
+
+        log.info("allItemDTL Start");
+        List<ItemDTL> allItemDTL = null;
+
+        try {
+            allItemDTL = session.selectList("allItemDTL");
+            log.info("allItemDTL.size() = {}", allItemDTL.size());
+        } catch (Exception e) {
+            log.info("e.getMessage() = {}", e.getMessage());
+        }
+
+        return allItemDTL;
+    }
+
 
     @Override
     public int countItemDTLBySection(int sectionId) {

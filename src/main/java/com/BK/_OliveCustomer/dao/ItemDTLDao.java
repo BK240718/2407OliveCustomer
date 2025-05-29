@@ -8,6 +8,8 @@ public interface ItemDTLDao {
 
     List<ItemDTL> listItemDTLBySection(ItemDTL itemDTL);
 
+    List<ItemDTL> allItemDTL();
+
     int countItemDTLBySection(int sectionId);
 
     ItemDTL oneItemDTL(int itemDtlId);

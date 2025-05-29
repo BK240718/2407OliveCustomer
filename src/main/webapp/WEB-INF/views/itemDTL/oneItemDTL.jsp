@@ -100,14 +100,7 @@
                               <button type="button" class="btn btn-primary" id="insert2Cart" data-itemDTL-id="${itemDTL.itemDtlId}">
                                  <i class="feather-icon icon-shopping-bag me-2"></i>
                                  Add to cart
-                              </button>
                            </div>
-                           <div class="col-md-4 col-4">
-                              <!-- btn -->
-                              <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist"><i class="feather-icon icon-heart"></i></a>
-                           </div>
-                        </div>
-                        <!-- hr -->
                         <hr class="my-6" />
                         <div>
                            <!-- table -->
@@ -119,34 +112,7 @@
                                  </tr>
                               </tbody>
                            </table>
-                        </div>
-                        <div class="mt-8">
-                           <!-- dropdown -->
-                           <div class="dropdown">
-                              <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Share</a>
-
-                              <ul class="dropdown-menu">
-                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                       <i class="bi bi-facebook me-2"></i>
-                                       Facebook
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                       <i class="bi bi-twitter me-2"></i>
-                                       Twitter
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                       <i class="bi bi-instagram me-2"></i>
-                                       Instagram
-                                    </a>
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
+                       </div>
                      </div>
                   </div>
                </div>

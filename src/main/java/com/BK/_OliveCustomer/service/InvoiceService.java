@@ -1,6 +1,7 @@
 package com.BK._OliveCustomer.service;
 
 import com.BK._OliveCustomer.dto.ApproveResponse;
+import com.BK._OliveCustomer.dto.CartItem;
 import com.BK._OliveCustomer.dto.Invoice;
 import com.BK._OliveCustomer.dto.ReadyResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public interface InvoiceService {
 
     ReadyResponse prepareKakaoPayRequest(Invoice request);
 
-    ApproveResponse payApprove(String tid, String pgToken, int tatalPrice, HttpServletRequest request);
+    ApproveResponse payApprove(String tid, String pgToken, Invoice invoice, HttpServletRequest request, List<CartItem> cartItems);
 
-    void insertInvoice(Invoice invoice);
+    void insertInvoice(Invoice invoice, List<CartItem> cartItems);
 }
