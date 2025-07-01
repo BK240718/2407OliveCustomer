@@ -29,8 +29,13 @@ bootJar {
 	enabled = false //  jar 비활성화
 }
 
-war {
-	enabled = true //  war 활성화
+bootWar {
+	enabled = true
+	archiveFileName = 'app.war'
+}
+
+springBoot {
+	mainClass = 'com.BK.OliveCustomer.Application'
 }
 
 dependencies {
