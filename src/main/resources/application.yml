@@ -3,6 +3,14 @@ server:
 
 # Oracle Connect
 spring:
+  config:
+    import: optional:classpath:application-aws.yml
+
+  # aws
+  profiles:
+    include: aws
+
+
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@localhost:1521/xe
@@ -14,10 +22,6 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-
-  # aws
-  profiles:
-    include: aws
 
   servlet:
     multipart:
